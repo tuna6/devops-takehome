@@ -1,0 +1,35 @@
+# Docker
+**/docker-compose.override.yml
+# Keep the root docker-compose.yml tracked for bootstrap
+!docker-compose.yml
+*.log
+*.tmp
+
+# Kubernetes
+.kube/
+**/.kube/
+*.kube/config
+**/.kube/config
+.kubeconfig
+kubeconfig
+
+# Terraform
+terraform.tfstate*
+.tfstate*
+*.tfstate.backup
+.terraform/
+
+# Secrets and credentials
+*.pem
+*.key
+*.crt
+*.env
+.env.*
+
+# Node modules / Python
+node_modules/
+__pycache__/
+*.pyc
+
+# Misc
+.DS_Store
