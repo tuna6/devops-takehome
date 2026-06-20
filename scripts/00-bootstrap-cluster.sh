@@ -18,11 +18,27 @@ fi
 if [ "$cluster_exists" = true ]; then
   printf 'Cluster "%s" already exists. Verifying existing cluster topology...\n' "$CLUSTER_NAME"
   existing_nodes=$(k3d node list --no-headers | awk -v c="$CLUSTER_NAME" '$3 == c && $2 != "loadbalancer"' | wc -l)
-  printf 'Found %s node containers for cluster "%s".\n' "$existing_nodes" "$CLUSTER_NAME"
+  printf 'Found %s node container(s) for cluster "%s".\n' "$existing_nodes" "$CLUSTER_NAME"
   if [ "$existing_nodes" -lt 5 ]; then
-    echo 'ERROR: existing cluster does not contain at least 5 nodes (1 server + 4 agents).'
-    echo 'Please delete the cluster or adjust it before continuing.'
-    exit 1
+    # Fewer than 5 containers visible means the cluster is still being created
+    # (e.g. by the compose bootstrap container running concurrently). Wait
+    # rather than error immediately — the kubectl wait below will gate on
+    # actual node readiness once all containers are registered.
+    printf 'Only %s/5 node containers visible — cluster may still be initialising.\n' "$existing_nodes"
+    printf 'Waiting up to 2 minutes for all 5 containers to register...\n'
+    elapsed=0
+    while [ "$(k3d node list --no-headers | awk -v c="$CLUSTER_NAME" '$3 == c && $2 != "loadbalancer"' | wc -l)" -lt 5 ]; do
+      if [ "$elapsed" -ge 120 ]; then
+        printf 'ERROR: timed out — only %s node containers for cluster "%s" after 2 minutes.\n' \
+          "$(k3d node list --no-headers | awk -v c="$CLUSTER_NAME" '$3 == c && $2 != "loadbalancer"' | wc -l)" \
+          "$CLUSTER_NAME"
+        printf 'If the cluster is broken, run scripts/99-teardown.sh then docker compose up -d\n'
+        exit 1
+      fi
+      sleep 3
+      elapsed=$((elapsed + 3))
+    done
+    printf 'All 5 node containers now registered.\n'
   fi
 else
   printf 'Creating k3d cluster "%s" with 1 server + 4 agents and host port 8080 mapped to cluster port 80...\n' "$CLUSTER_NAME"

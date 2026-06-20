@@ -48,7 +48,9 @@ else
   kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
 
   printf 'Applying ArgoCD manifest (%s)...\n' "${ARGOCD_VERSION}"
-  kubectl apply -n argocd -f "${ARGOCD_MANIFEST}"
+  # --server-side avoids the 262144-byte annotation limit that blocks ArgoCD v3's
+  # large applicationsets CRD when using client-side apply.
+  kubectl apply -n argocd -f "${ARGOCD_MANIFEST}" --server-side
 fi
 
 printf 'Waiting for ArgoCD deployments to be available (timeout 5m)...\n'
