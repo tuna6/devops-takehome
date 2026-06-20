@@ -7,17 +7,25 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 # --- ArgoCD version pin ---
-# Pinned to v2.13.3: the v2.13 series is the most recent LTS-style minor line
-# as of early 2025, with accumulated fixes over the initial v2.13.0 release.
+# Pinned to v3.4.4: verified as the latest stable patch in the v3.4 line on
+# https://github.com/argoproj/argo-cd/releases (released 2026-06-18).
+# v3.x is the current supported generation; v2.13.x is now outside the two-most-
+# recent-minors support window. v3.4.4 chosen over v3.3.x as the latest minor.
+#
+# v3 RBAC note: ArgoCD v3 changed its *internal* API RBAC (policy.csv/casbin) so
+# that user-level Application permissions no longer cascade to sub-resources by
+# default. This does NOT affect automated sync — the application-controller uses
+# its Kubernetes ClusterRole (apiGroups:['*'], resources:['*'], verbs:['*'],
+# unchanged in v3.4.4) to manage Deployments/Services/Ingresses/HPAs/PDBs
+# directly. The internal RBAC layer is only exercised by human users via the
+# ArgoCD API/UI; our Application runs automated sync with no human trigger.
+#
 # Install method: official manifest (not Helm chart) because:
-#   (a) the manifest is the primary supported path per ArgoCD docs;
-#   (b) the ArgoCD Helm chart can lag the release cycle and adds its own values
-#       layer of complexity on top of ArgoCD's own config mechanism;
-#   (c) for a k3d cluster reachable only from inside the toolbox, `kubectl apply -f <url>`
-#       is one command vs three (helm repo add / update / install).
-#   (d) `kubectl apply` is idempotent: subsequent runs update existing resources
-#       in-place with no extra flags needed.
-ARGOCD_VERSION="${ARGOCD_VERSION:-v2.13.3}"
+#   (a) the manifest is the primary supported install path per ArgoCD docs;
+#   (b) for a k3d cluster reachable only from inside the toolbox, one
+#       `kubectl apply -f <url>` is simpler than helm repo add/update/install;
+#   (c) `kubectl apply` is idempotent — subsequent runs update resources in-place.
+ARGOCD_VERSION="${ARGOCD_VERSION:-v3.4.4}"
 ARGOCD_MANIFEST="https://raw.githubusercontent.com/argoproj/argo-cd/${ARGOCD_VERSION}/manifests/install.yaml"
 
 # Determine the git repo URL for the ArgoCD Application.

@@ -59,20 +59,5 @@ spec:
             capabilities:
               drop:
                 - ALL
-          # emptyDir for Python bytecode cache: main.py is in /app which is
-          # read-only. Python tries to write /app/__pycache__/main.cpython-312.pyc
-          # at startup; without a writable mount it silently falls back to
-          # source-only import (no crash, but a warning in logs on every restart).
-          # Mounting an emptyDir here avoids the repeated cache-miss penalty.
-          volumeMounts:
-            - name: pycache
-              mountPath: /app/__pycache__
-            - name: tmp
-              mountPath: /tmp
-      volumes:
-        - name: pycache
-          emptyDir: {}
-        - name: tmp
-          emptyDir: {}
       # TODO (item 9): add nodeAffinity weights and topologySpreadConstraints
       # for spot/on-demand placement — deliberately out of scope for this pass.
