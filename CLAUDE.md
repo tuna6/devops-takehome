@@ -109,21 +109,32 @@ FastAPI quote-api service, multi-stage Dockerfile, GHCR push script.
 
 ---
 
+### Part 2 — GitOps Deployment (sessions 2026-06-20) ✅
+
+| File | Notes |
+|---|---|
+| `helm/quote-api/` | Hand-written Helm chart: Deployment, Service, Ingress, HPA (min:3), PDB (minAvailable:2) |
+| `argocd/quote-api-application.yaml` | ArgoCD Application syncing from `helm/quote-api/`, automated+selfHeal |
+| `scripts/20-deploy.sh` | Installs ArgoCD v3.4.4 (server-side apply for v3 CRD size), applies Application, waits Synced+Healthy |
+| `scripts/25-reclaim-drill.sh` | Cordon+drain one spot node, curl loop survivability test, placement PASS/WARN check, uncordon |
+
+**Placement design (soft constraints — see README for full rationale):**
+- `requiredDuringScheduling NotIn ["gpu"]` — hard GPU exclusion
+- `preferredDuringScheduling weight:100 In ["spot"]` — spot preference
+- Two `ScheduleAnyway` topologySpreadConstraints: by `acme.io/capacity` and by `kubernetes.io/hostname`
+- Control-plane taint: `node-role.kubernetes.io/control-plane:NoSchedule` added in `00-bootstrap-cluster.sh` — k3s does NOT add this by default (unlike kubeadm). A real pod-on-server-0 placement was observed before this fix.
+- `DoNotSchedule` was explicitly rejected: with 2 capacity domains, it blocks rescheduling during a spot drain — the exact scenario the drill tests.
+
+**Observed placement variability (confirmed 2026-06-20 — important context for Part 6 HPA checks):**  
+Weight:100 spot preference + `ScheduleAnyway` produces non-deterministic results. Two scheduling rounds in the same session produced different splits: ArgoCD-managed fresh sync → 2 spot / 1 on-demand; manual rolling update → 3 spot / 0 on-demand. Both are valid outcomes of the soft constraint. The "likely 2/1" framing in the README is accurate — it is likely, not guaranteed. Do not be surprised if a future session or reviewer run sees all-spot. The drill's placement check handles this with a non-blocking WARN. The weight:100 value is intentional and must not be lowered to chase a 2/1 demo outcome.
+
+**Drill result (2026-06-20):** 60/60 requests, 0 failures, max gap 2s, placement PASS (2 spot / 1 on-demand post-drain).
+
 ### What is NOT yet built
 
-- Part 2: Helm chart, ArgoCD Application, spot/on-demand placement, reclaim drill
-- Part 3: troubleshoot/fixed-app.yaml + TROUBLESHOOTING.md (provided assets not yet extracted from zip)
+- Part 3: troubleshoot/fixed-app.yaml + TROUBLESHOOTING.md
 - Parts 4–6: CI/CD, IaC, load test (pick ≥1)
 - Part 7: OPS-ANSWERS.md
-- AI-USAGE.md
-
-### Provided assets (not yet extracted)
-
-`../devops-takehome-package.zip` contains:
-- `troubleshoot/prepare.sh`, `broken-app.yaml`, `verify.sh`, `smoke-job.yaml`
-- `ci/legacy.gitlab-ci.yml`
-
-Extract into the repo when starting Part 2/3/4.
 
 ---
 

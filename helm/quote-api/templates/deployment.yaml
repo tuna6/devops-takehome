@@ -15,10 +15,6 @@ spec:
       labels:
         {{- include "quote-api.selectorLabels" . | nindent 8 }}
     spec:
-      # Exclude the GPU node (tainted nvidia.com/gpu=true:NoSchedule) without
-      # adding explicit affinity — the taint already prevents scheduling there
-      # unless a pod has a matching toleration. No placement policy beyond that
-      # for this pass; spot/on-demand affinity is a separate task (item 9).
       securityContext:
         runAsNonRoot: true
         # UID 1001 matches the appuser created in the Dockerfile:
@@ -59,5 +55,42 @@ spec:
             capabilities:
               drop:
                 - ALL
-      # TODO (item 9): add nodeAffinity weights and topologySpreadConstraints
-      # for spot/on-demand placement — deliberately out of scope for this pass.
+      affinity:
+        nodeAffinity:
+          # Hard constraint: never schedule on the GPU node.
+          # The GPU node is already tainted NoSchedule; this adds a label guard so
+          # the exclusion is visible in the chart itself, not only in the taint.
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: acme.io/node-type
+                operator: NotIn
+                values: ["gpu"]
+          # Soft preference: score spot nodes highest (weight 100).
+          # On-demand nodes score 0 for this preference but remain fully schedulable —
+          # intentional so the on-demand replica is not hard-blocked.
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: acme.io/capacity
+                operator: In
+                values: ["spot"]
+      # SOFT spread across capacity types (spot vs on-demand): ScheduleAnyway makes
+      # 2-spot/1-on-demand the likely steady state without hard-blocking rescheduling
+      # when a spot node disappears. DoNotSchedule would leave a pod Pending with only
+      # 2 topology domains and 0 slack after one drains — exactly the reclaim scenario.
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: acme.io/capacity
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            {{- include "quote-api.selectorLabels" . | nindent 12 }}
+      # SOFT spread across individual nodes — no single node takes > 1 pod at steady state.
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            {{- include "quote-api.selectorLabels" . | nindent 12 }}

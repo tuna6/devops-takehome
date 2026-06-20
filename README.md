@@ -44,16 +44,16 @@ flowchart TD
     LB --> S0
     S0 --- A0 & A1 & A2 & A3
 
-    classDef pending fill:#f5f5f5,stroke:#bbb,color:#999
     classDef built fill:#e6f4ea,stroke:#34a853,color:#1a4d2e
     GHCR["ghcr.io/tuna6/devops-takehome:SHA\nFastAPI quote-api\n/healthz · /readyz · /metrics · /api/quote"]:::built
-    APP["quote-api pods\n(Part 2 — deploy via ArgoCD)"]:::pending
-    ARGO["ArgoCD + Helm chart (Part 2 — pending)"]:::pending
-    INGRESS["Ingress → app:8080 (Part 2 — pending)"]:::pending
-    A0 & A1 & A2 -.->|"spot / on-demand\nplacement (Part 2)"| APP:::pending
-    APP -.-> ARGO:::pending
-    GHCR -.->|"Part 2 pulls image"| APP:::pending
-    LB -.-> INGRESS:::pending
+    ARGO["ArgoCD v3.4.4\n+ Helm chart"]:::built
+    APP["quote-api pods ×3\n(2 spot · 1 on-demand)"]:::built
+    INGRESS["Traefik Ingress\nhost:8080 → /api/quote"]:::built
+    A0 & A1 & A2 -->|"affinity + topology spread"| APP:::built
+    APP --> ARGO:::built
+    GHCR -->|"image pull"| APP:::built
+    LB --> INGRESS:::built
+    INGRESS --> APP
 ```
 
 > **Node labels** (applied by `troubleshoot/prepare.sh` during bootstrap):  
@@ -69,7 +69,9 @@ flowchart TD
 |---|---|---|
 | `scripts/00-bootstrap-cluster.sh` | Creates a 5-node k3d cluster (`--api-port 6443`, `--tls-san`), writes kubeconfig, waits for all nodes Ready, runs `troubleshoot/prepare.sh` if present. Idempotent — safe to re-run. | Run automatically by `docker compose up -d` via the bootstrap service. Can also be called directly inside the toolbox container. |
 | `scripts/10-build-push.sh` | Builds the `quote-api` Docker image, tags it with the current git SHA (`ghcr.io/tuna6/devops-takehome:<sha>`), and pushes to GHCR. Idempotent — re-running with the same SHA rebuilds and re-pushes safely. Reads `GITHUB_TOKEN` env var for login if provided; otherwise assumes `docker login ghcr.io` has already been run. | Run once after cloning (image is pre-built at the SHA in this repo). Re-run after any code change in `src/`. |
-| `scripts/run-all.sh` | Runs all numbered scripts in order. | `./scripts/run-all.sh` from the host after `docker compose up -d`. |
+| `scripts/20-deploy.sh` | Installs ArgoCD (v3.4.4, idempotent) and applies the `quote-api` ArgoCD Application pointing at the Helm chart in this repo. Waits for Synced + Healthy. | Run automatically by `run-all.sh`. Re-runnable to check ArgoCD state. |
+| `scripts/25-reclaim-drill.sh` | Spot-node reclaim drill: picks a spot node running a quote-api pod, starts a curl loop, cordons + drains the node (respecting PDB), shows pod rescheduling, then uncordons. Exits 0 if the service stayed reachable within the gap tolerance; prints a placement PASS/WARN (not a hard gate). | Run manually inside the toolbox. Not in `run-all.sh` — node drain is disruptive and requires explicit intent. |
+| `scripts/run-all.sh` | Waits for the compose bootstrap container to finish, then runs the numbered scripts in order inside the toolbox. | `./scripts/run-all.sh` from the host after `docker compose up -d`. |
 
 ---
 
@@ -108,8 +110,37 @@ The builder stage creates a venv at `/venv`, installs all deps, and is discarded
 **All deps pinned including transitive**  
 `src/requirements.txt` pins all 16 packages (direct + transitive) at the exact versions produced by the first `pip install` run. This guarantees identical builds across machines and time.
 
+**Spot/on-demand placement: soft constraints over hard pins**  
+The assignment asks for "at least one replica always on the on-demand node" but also forbids hard-pinning all replicas to on-demand. These pull in opposite directions for a single Deployment. Three approaches were evaluated:
+
+1. **Hard `DoNotSchedule` topology spread** — would guarantee exactly 1 pod in the on-demand topology bucket, but breaks the reclaim drill: with only 2 topology domains (spot, on-demand) and 0 slack, losing one spot domain leaves a pod Pending with no schedulable domain that satisfies the constraint. The assignment's own drill scenario is the exact failure case.
+2. **Two-Deployment split** (one Deployment pinned spot, one pinned on-demand) — would guarantee the split, but fights HPA scale-out semantics (Part 6 needs HPA to control a single replica count, not two coordinated counts), doubles chart/ops surface, and makes PDB reasoning more complex.
+3. **Soft `ScheduleAnyway` topology spread + weighted affinity** *(chosen)* — `preferredDuringScheduling` with weight 100 for spot nodes scores them highest; `ScheduleAnyway` topologySpread across `acme.io/capacity` then pulls toward even distribution across capacity types without hard-blocking rescheduling when a domain disappears. The GPU node is excluded by a `requiredDuringScheduling NotIn ["gpu"]` guard (belt-and-suspenders alongside the existing NoSchedule taint).
+
+**Control-plane exclusion:** k3s does NOT apply a `NoSchedule` taint to the server node by default (unlike kubeadm). Without an explicit exclusion, the scheduler treats server-0 as a valid placement target — a user observed exactly this after a deploy cycle. The fix is a cluster-level taint added in `scripts/00-bootstrap-cluster.sh` (`node-role.kubernetes.io/control-plane:NoSchedule`) rather than a chart-level label guard, which more accurately simulates EKS where the control plane is not visible to user workloads at all.
+
+**Residual risk — real, not theoretical:** the 2-spot / 1-on-demand split is the intended steady state but is not guaranteed. This was confirmed by actual measurement in the same verification session that produced the PASS result: one scheduling round (ArgoCD-managed, fresh cluster sync) produced **2 spot / 1 on-demand**; a different scheduling round (manual local apply, rolling update from existing pods) produced **3 spot / 0 on-demand**:
+
+```
+# ArgoCD-managed sync (fresh):
+NAME                         NODE                      CAPACITY
+quote-api-64cbcfdf46-qtjkv   k3d-elsa-devops-agent-0   spot
+quote-api-64cbcfdf46-7xgkd   k3d-elsa-devops-agent-1   spot
+quote-api-64cbcfdf46-6wvts   k3d-elsa-devops-agent-2   on-demand
+
+# Manual local apply (rolling update):
+NAME                       NODE                      CAPACITY
+quote-api-9d75bc45-g44j5   k3d-elsa-devops-agent-0   spot  ← 2 pods on same node
+quote-api-9d75bc45-ns9fp   k3d-elsa-devops-agent-1   spot
+quote-api-9d75bc45-sc9mw   k3d-elsa-devops-agent-0   spot
+```
+
+Both runs used the same chart config (weight:100 spot preference, `ScheduleAnyway` topology spread). The variability is the soft constraint working as specified — it scores spot nodes higher and does not block putting all replicas there. Lowering the weight to chase a 2/1 outcome was evaluated and deliberately rejected: a lower weight shifts the probability but still produces no guarantee, and we prefer to document the honest observed range rather than dial in a specific demo result.
+
+The `scripts/25-reclaim-drill.sh` placement check surfaces this at drill time — it will print **WARN** when all-spot placement is observed (not an exit-1 failure) so the outcome is always recorded explicitly. The drill's PASS/FAIL gate is service survivability (curl loop gap ≤ 30 s), not placement split.
+
 **What was cut**  
-Parts 2–7 are not yet implemented. Part 1 (build & ship) is complete — image is live at `ghcr.io/tuna6/devops-takehome:2c94e39`.
+Parts 3–7 are not yet implemented. Part 1 (build & ship) and Part 2 (GitOps deployment, placement, reclaim drill) are complete.
 
 ---
 

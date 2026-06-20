@@ -68,4 +68,18 @@ else
   printf 'No troubleshoot/prepare.sh found yet; skipping prepare step safely.\n'
 fi
 
+# In EKS the control-plane is fully managed and not visible as a schedulable node.
+# k3s does NOT add NoSchedule to the server node by default (unlike kubeadm).
+# Taint it here so our local simulation matches production: workloads that don't
+# explicitly tolerate the control-plane taint cannot land on server-0.
+printf 'Tainting control-plane node(s) NoSchedule (EKS simulation)...\n'
+kubectl get nodes --kubeconfig "$KUBECONFIG_PATH" \
+  -l node-role.kubernetes.io/control-plane \
+  -o custom-columns='NAME:.metadata.name' --no-headers \
+  | while read -r node; do
+      kubectl taint node "$node" \
+        node-role.kubernetes.io/control-plane:NoSchedule \
+        --overwrite --kubeconfig "$KUBECONFIG_PATH"
+    done
+
 printf 'Bootstrap complete; cluster "%s" is ready.\n' "$CLUSTER_NAME"
