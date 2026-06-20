@@ -33,6 +33,7 @@ Known sensitive paths in this project and their gitignore status:
 - `*.env`, `.env.*` → covered ✅
 
 The assignment says credential leaks are an **instant fail**. Check every time.
+Also never commit and push code by yourself. I'll do it manually
 
 ### 3. Verify, don't assume
 When making infrastructure changes (Dockerfile versions, CLI flags, shell scripts), verify with

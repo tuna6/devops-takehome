@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quote-api
+  namespace: argocd
+  # Finalizer ensures ArgoCD cleans up all managed resources when the
+  # Application is deleted (cascade delete). Safe to remove if you want
+  # resources to outlive the Application object.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    # REPO_URL is substituted by scripts/20-deploy.sh via envsubst before apply.
+    # Default: https://github.com/tuna6/devops-takehome
+    # Override: export REPO_URL=<url> before running scripts/20-deploy.sh
+    repoURL: ${REPO_URL}
+    targetRevision: HEAD
+    # Path within the repo to the Helm chart. Assumes the GitHub repo root
+    # maps to the devops-takehome/ directory (i.e., docker-compose.yml is
+    # at the repo root). If the full elsa-devops-assignment/ tree is pushed,
+    # change this to devops-takehome/helm/quote-api.
+    path: helm/quote-api
+    helm:
+      releaseName: quote-api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: quote-api
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "quote-api.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "quote-api.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "quote-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "quote-api.selectorLabels" . | nindent 8 }}
+    spec:
+      # Exclude the GPU node (tainted nvidia.com/gpu=true:NoSchedule) without
+      # adding explicit affinity — the taint already prevents scheduling there
+      # unless a pod has a matching toleration. No placement policy beyond that
+      # for this pass; spot/on-demand affinity is a separate task (item 9).
+      securityContext:
+        runAsNonRoot: true
+        # UID 1001 matches the appuser created in the Dockerfile:
+        #   adduser -S -u 1001 -G appuser -H appuser
+        runAsUser: 1001
+        runAsGroup: 1001
+      containers:
+        - name: quote-api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          # Probes target the actual paths/port from src/main.py:
+          #   @app.get("/healthz") and @app.get("/readyz") both served on port 8000.
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          # emptyDir for Python bytecode cache: main.py is in /app which is
+          # read-only. Python tries to write /app/__pycache__/main.cpython-312.pyc
+          # at startup; without a writable mount it silently falls back to
+          # source-only import (no crash, but a warning in logs on every restart).
+          # Mounting an emptyDir here avoids the repeated cache-miss penalty.
+          volumeMounts:
+            - name: pycache
+              mountPath: /app/__pycache__
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: pycache
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+      # TODO (item 9): add nodeAffinity weights and topologySpreadConstraints
+      # for spot/on-demand placement — deliberately out of scope for this pass.

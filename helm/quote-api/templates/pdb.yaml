@@ -1,0 +1,14 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "quote-api.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "quote-api.labels" . | nindent 4 }}
+spec:
+  # minAvailable=2 out of minReplicas=3: tolerates one pod being voluntarily
+  # disrupted (node drain, rolling update) while keeping >50% capacity available.
+  minAvailable: {{ .Values.pdb.minAvailable }}
+  selector:
+    matchLabels:
+      {{- include "quote-api.selectorLabels" . | nindent 6 }}

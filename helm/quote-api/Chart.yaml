@@ -1,0 +1,6 @@
+apiVersion: v2
+name: quote-api
+description: Quote API — FastAPI + Prometheus, CPU-bound SHA-256 per request
+type: application
+version: 0.1.0
+appVersion: "2c94e39"
