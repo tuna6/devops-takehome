@@ -54,49 +54,62 @@ When a part is done, stop and report — don't start the next one unless asked.
 
 ---
 
-## What has been built (session 2026-06-19)
+## What has been built
 
-### Cluster harness (bootstrap layer only)
+### Part 0 — Cluster harness (session 2026-06-19) ✅
 
 `docker compose up -d` alone brings up a working 5-node k3d cluster. No manual steps needed.
 
-**Files produced / fixed:**
-
 | File | Status | Notes |
 |---|---|---|
-| `toolbox/Dockerfile` | fixed + written | k3d v5.9.0, kubectl v1.36.2, helm v4.2.2, terraform v1.15.6, k6 **v1.8.0** |
-| `docker-compose.yml` | fixed | DooD via socket, `extra_hosts` for cross-platform API access |
+| `toolbox/Dockerfile` | fixed + written | k3d v5.9.0, kubectl v1.36.2, helm v4.2.2, terraform v1.15.6, k6 v1.8.0 |
+| `docker-compose.yml` | fixed | DooD via socket `:rw`, `extra_hosts` for cross-platform API access |
 | `scripts/00-bootstrap-cluster.sh` | fixed | Creates 5-node cluster, patches kubeconfig, idempotent |
-| `scripts/run-all.sh` | exists | Calls 00-bootstrap-cluster.sh; expand as parts are added |
-| `README.md` | written | All 5 required sections |
+| `scripts/run-all.sh` | exists | Calls numbered scripts in order; expand as parts are added |
+| `README.md` | written | All 5 required sections per assignment spec |
 
 **Bugs fixed from the original Haiku-generated code:**
 
-1. **k6 double-v URL bug** — `K6_VERSION=v2.0.0` + `k6-v${K6_VERSION}` → `k6-vv2.0.0` (404).
-   Fixed: changed to `v1.8.0` and `k6-${K6_VERSION}`.
+1. **k6 double-v URL bug** — `K6_VERSION=v2.0.0` + `k6-v${K6_VERSION}` → `k6-vv2.0.0` (404). Fixed: `v1.8.0` + `k6-${K6_VERSION}`.
+2. **DooD kubeconfig unreachable** — k3d writes `https://0.0.0.0:6443`; unreachable from inside a container. Fixed: `--api-port 6443` + `sed` patches URL to `host.docker.internal:6443` + `--tls-san` + `extra_hosts`.
+3. **`KUBECONFIG` not exported** — `prepare.sh` calls had no kubeconfig. Fixed: `export KUBECONFIG` before the invocation.
+4. **`k3d node list --cluster` invalid flag** — no such flag in v5.9.0. Fixed: `awk` filter on CLUSTER column.
+5. **Duplicate `kubectl wait` block** — copy-paste duplicate. Removed.
+6. **Docker socket mounted `:ro`** — changed to `:rw`.
+7. **Scripts not executable** — `chmod +x scripts/*.sh` added.
 
-2. **DooD kubeconfig unreachable** — k3d writes `https://0.0.0.0:6443` in kubeconfig; from
-   inside a container that address doesn't reach the host's API server.
-   Fixed: `--api-port 6443` pins the port; `sed` patches server URL to `host.docker.internal:6443`;
-   `--k3s-arg '--tls-san=host.docker.internal@server:*'` adds the hostname to the TLS cert SAN;
-   `extra_hosts: host.docker.internal: host-gateway` resolves it inside containers.
+---
 
-3. **`KUBECONFIG` not exported** — bootstrap called `prepare.sh` without exporting `KUBECONFIG`,
-   so prepare.sh's bare `kubectl` calls had no kubeconfig to find.
-   Fixed: `export KUBECONFIG="$KUBECONFIG_PATH"` added before the prepare.sh invocation.
+### Part 1 — Build & Ship (session 2026-06-20) ✅
 
-4. **`k3d node list --cluster` invalid flag** — k3d v5.9.0 has no `--cluster` flag on `node list`.
-   Fixed: `awk -v c="$CLUSTER_NAME" '$3 == c && $2 != "loadbalancer"'` to filter by CLUSTER column.
+FastAPI quote-api service, multi-stage Dockerfile, GHCR push script.
 
-5. **Duplicate `kubectl wait` block** — identical two-line block copy-pasted twice. Removed.
+| File | Notes |
+|---|---|
+| `src/main.py` | FastAPI: `/healthz`, `/readyz`, `/metrics` (prometheus_client), `/api/quote` |
+| `src/requirements.txt` | 16 packages fully pinned (direct + transitive, captured from actual pip install) |
+| `Dockerfile` | Multi-stage: builder (`python:3.12-alpine` + venv), final (`python:3.12-alpine`, USER 1001) |
+| `scripts/10-build-push.sh` | Builds, tags with `git rev-parse --short HEAD`, pushes to GHCR; idempotent |
 
-6. **Docker socket mounted `:ro`** — changed to `:rw` on both services.
+**Key decisions:**
+- CPU burn: SHA-256 hashing loop (`time.perf_counter` deadline) — not `time.sleep` (I/O wait), not bare busy-loop (can be no-op'd). Measured at ~101ms.
+- Base image: `python:3.12-alpine` (142 MB) over `python:3.12-slim` (249 MB). All compiled extensions ship musllinux wheels — no gcc/Rust needed in builder.
+- Non-root: `adduser -S -u 1001` + explicit `USER 1001`.
+- GHCR tag: git SHA only, no floating `latest`.
 
-7. **Scripts not executable** — `chmod +x scripts/*.sh` (permissions were never set).
+**GHCR image:** `ghcr.io/tuna6/devops-takehome:2c94e39`
+(SHA is pre-commit for Part 1 files; re-run `scripts/10-build-push.sh` after committing to get the correct SHA)
+
+**Verified (real output):**
+- `/healthz` → `{"status":"ok"}`, `/readyz` → `{"status":"ready"}`
+- `/api/quote` → JSON quote, ~101ms consistently across 5 runs
+- `/metrics` → `quote_requests_total` increments correctly after each quote request
+- `whoami` inside container → `appuser` (non-root confirmed)
+
+---
 
 ### What is NOT yet built
 
-- Part 1: app (Python/Go/Node HTTP service + Dockerfile)
 - Part 2: Helm chart, ArgoCD Application, spot/on-demand placement, reclaim drill
 - Part 3: troubleshoot/fixed-app.yaml + TROUBLESHOOTING.md (provided assets not yet extracted from zip)
 - Parts 4–6: CI/CD, IaC, load test (pick ≥1)
@@ -105,11 +118,11 @@ When a part is done, stop and report — don't start the next one unless asked.
 
 ### Provided assets (not yet extracted)
 
-The file `../devops-takehome-package.zip` (one level above the repo) contains:
+`../devops-takehome-package.zip` contains:
 - `troubleshoot/prepare.sh`, `broken-app.yaml`, `verify.sh`, `smoke-job.yaml`
 - `ci/legacy.gitlab-ci.yml`
 
-These need to be extracted into the repo when starting Part 2/3/4.
+Extract into the repo when starting Part 2/3/4.
 
 ---
 
@@ -123,3 +136,7 @@ These need to be extracted into the repo when starting Part 2/3/4.
 | TLS for API server | `--tls-san=host.docker.internal` | Avoids `insecure-skip-tls-verify`; proper cert SAN |
 | API server port | Fixed at 6443 via `--api-port` | Stable across cluster recreations; kubeconfig sed patch is predictable |
 | Tool versions | All pinned | Reproducibility; `latest` can break between reviewer runs |
+| App language | Python + FastAPI | Fastest path to correct ~100-line service with native prometheus_client integration |
+| App base image | `python:3.12-alpine` | 142 MB vs 249 MB for slim; all packages have musllinux prebuilt wheels |
+| CPU burn method | SHA-256 hashing loop | Real ALU+memory work; `time.sleep` is I/O wait, bare busy-loop can be no-op'd |
+| Image tagging | Git SHA only | Immutable, traceable; no floating `latest` |
