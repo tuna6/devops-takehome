@@ -1,0 +1,22 @@
+# Direct dependencies
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+prometheus-client==0.21.0
+
+# Transitive dependencies (pinned for reproducibility — generated from pip install output)
+annotated-types==0.7.0
+anyio==4.14.0
+click==8.4.1
+h11==0.16.0
+httptools==0.8.0
+idna==3.18
+pydantic==2.13.4
+pydantic-core==2.46.4
+python-dotenv==1.2.2
+pyyaml==6.0.3
+starlette==0.41.3
+typing-extensions==4.15.0
+typing-inspection==0.4.2
+uvloop==0.22.1
+watchfiles==1.2.0
+websockets==16.0

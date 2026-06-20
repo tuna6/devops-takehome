@@ -5,6 +5,7 @@
 ### 1. Read the assignment spec first
 Before doing any work, read `ASSIGNMENT.md` fully. It is the authoritative, non-negotiable spec.
 Do not edit it. Use it as a checklist against everything you produce.
+If anything is not documented but are industry standard, follow it.
 
 ### 2. Credential and secret check before every commit
 Before staging or committing anything, scan all files that will be included:

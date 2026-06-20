@@ -45,11 +45,14 @@ flowchart TD
     S0 --- A0 & A1 & A2 & A3
 
     classDef pending fill:#f5f5f5,stroke:#bbb,color:#999
-    APP["app (Part 1 — pending)"]:::pending
+    classDef built fill:#e6f4ea,stroke:#34a853,color:#1a4d2e
+    GHCR["ghcr.io/tuna6/devops-takehome:SHA\nFastAPI quote-api\n/healthz · /readyz · /metrics · /api/quote"]:::built
+    APP["quote-api pods\n(Part 2 — deploy via ArgoCD)"]:::pending
     ARGO["ArgoCD + Helm chart (Part 2 — pending)"]:::pending
     INGRESS["Ingress → app:8080 (Part 2 — pending)"]:::pending
     A0 & A1 & A2 -.->|"spot / on-demand\nplacement (Part 2)"| APP:::pending
     APP -.-> ARGO:::pending
+    GHCR -.->|"Part 2 pulls image"| APP:::pending
     LB -.-> INGRESS:::pending
 ```
 
@@ -65,6 +68,7 @@ flowchart TD
 | Script | What it does | When to run |
 |---|---|---|
 | `scripts/00-bootstrap-cluster.sh` | Creates a 5-node k3d cluster (`--api-port 6443`, `--tls-san`), writes kubeconfig, waits for all nodes Ready, runs `troubleshoot/prepare.sh` if present. Idempotent — safe to re-run. | Run automatically by `docker compose up -d` via the bootstrap service. Can also be called directly inside the toolbox container. |
+| `scripts/10-build-push.sh` | Builds the `quote-api` Docker image, tags it with the current git SHA (`ghcr.io/tuna6/devops-takehome:<sha>`), and pushes to GHCR. Idempotent — re-running with the same SHA rebuilds and re-pushes safely. Reads `GITHUB_TOKEN` env var for login if provided; otherwise assumes `docker login ghcr.io` has already been run. | Run once after cloning (image is pre-built at the SHA in this repo). Re-run after any code change in `src/`. |
 | `scripts/run-all.sh` | Runs all numbered scripts in order. | `./scripts/run-all.sh` from the host after `docker compose up -d`. |
 
 ---
@@ -86,8 +90,26 @@ k3d v5.9.0, kubectl v1.36.2, helm v4.2.2, terraform v1.15.6, k6 v1.8.0. Pinning 
 **k6 v1.8.0 over v2.0.0**  
 v2.0.0 is the newest release but v1.8.0 is a more established release from the stable 1.x line. Lower risk for the load-test script in Part 6. (v2.0.0 was also the version that exposed the double-v URL bug in the original generated Dockerfile — see AI-USAGE.md.)
 
-**What was cut (so far)**  
-Parts 1–7 are not yet implemented. The repository currently delivers only the cluster harness — the assignment allows partial submissions with notes, and a solid foundation beats a rushed full attempt.
+**FastAPI over Go/Node for the service**  
+Python + FastAPI is the fastest path to a correct, readable ~100-line service with Prometheus instrumentation and JSON responses. `prometheus_client` integrates natively. Go would produce a smaller binary but adds no meaningful value at this scale.
+
+**CPU burn: SHA-256 hashing loop, not `time.sleep`**  
+`time.sleep` is I/O wait — the process yields to the OS, burns no CPU, and produces misleading results under a load test. A bare `while True: pass` busy-loop does no real work and can be silently no-op'd by the interpreter or CPU. SHA-256 hashing (`hashlib.sha256`) performs real memory reads/writes and ALU computation each iteration. The loop runs until `time.perf_counter()` reaches the 100 ms deadline — consistent regardless of CPU speed.
+
+**Alpine base image (142 MB) over `python:3.12-slim` (249 MB)**  
+All compiled extensions pulled in by `uvicorn[standard]` — `httptools`, `uvloop`, `watchfiles` — and `pydantic-core` publish pre-built `musllinux` wheels on PyPI. No gcc or Rust toolchain is needed in the build stage. Alpine gives a 43% smaller final image with the same security posture (musl libc, no shell in runtime path).
+
+**Multi-stage Dockerfile with virtualenv**  
+The builder stage creates a venv at `/venv`, installs all deps, and is discarded. The final stage copies only `/venv` and `main.py` — no pip, no build tools, no cache. Running as explicit `USER 1001` (non-root) with no `--create-home`.
+
+**Git SHA tag on GHCR, no floating `latest`**  
+`latest` is mutable and breaks reproducibility — the same tag can resolve to a different image on a re-run. Every push is tagged with the short git SHA (`ghcr.io/tuna6/devops-takehome:<sha>`), making deploys traceable to an exact commit.
+
+**All deps pinned including transitive**  
+`src/requirements.txt` pins all 16 packages (direct + transitive) at the exact versions produced by the first `pip install` run. This guarantees identical builds across machines and time.
+
+**What was cut**  
+Parts 2–7 are not yet implemented. Part 1 (build & ship) is complete — image is live at `ghcr.io/tuna6/devops-takehome:2c94e39`.
 
 ---
 
