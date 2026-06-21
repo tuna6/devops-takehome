@@ -88,7 +88,7 @@ FastAPI quote-api service, multi-stage Dockerfile, GHCR push script.
 | File | Notes |
 |---|---|
 | `src/main.py` | FastAPI: `/healthz`, `/readyz`, `/metrics` (prometheus_client), `/api/quote` |
-| `src/requirements.txt` | 16 packages fully pinned (direct + transitive, captured from actual pip install) |
+| `src/requirements.txt` | 17 packages fully pinned. Upgraded in Part 4 session: fastapi 0.115.5→0.138.0, starlette 0.41.3→1.3.1, uvicorn 0.32.1→0.49.0 (patched 3 HIGH CVEs caught by Trivy gate) |
 | `Dockerfile` | Multi-stage: builder (`python:3.12-alpine` + venv), final (`python:3.12-alpine`, USER 1001) |
 | `scripts/10-build-push.sh` | Builds, tags with `git rev-parse --short HEAD`, pushes to GHCR; idempotent |
 
@@ -98,8 +98,7 @@ FastAPI quote-api service, multi-stage Dockerfile, GHCR push script.
 - Non-root: `adduser -S -u 1001` + explicit `USER 1001`.
 - GHCR tag: git SHA only, no floating `latest`.
 
-**GHCR image:** `ghcr.io/tuna6/devops-takehome:2c94e39`
-(SHA is pre-commit for Part 1 files; re-run `scripts/10-build-push.sh` after committing to get the correct SHA)
+**GHCR image:** managed by CI after Part 4. Current tag in `helm/quote-api/values.yaml`: `b91894e7396f5fd7c01bd3066aaf377a1f9fab7e` (full SHA, written by CI write-back). `scripts/10-build-push.sh` is the manual dev-path and uses short SHA — separate from CI.
 
 **Verified (real output):**
 - `/healthz` → `{"status":"ok"}`, `/readyz` → `{"status":"ready"}`
@@ -130,10 +129,56 @@ Weight:100 spot preference + `ScheduleAnyway` produces non-deterministic results
 
 **Drill result (2026-06-20):** 60/60 requests, 0 failures, max gap 2s, placement PASS (2 spot / 1 on-demand post-drain).
 
+---
+
+### Part 3 — Troubleshooting Challenge (session 2026-06-20) ✅
+
+| File | Notes |
+|---|---|
+| `troubleshoot/fixed-app.yaml` | All 7 issues fixed; `verify.sh` prints PASS |
+| `TROUBLESHOOTING.md` | Per-issue: symptom → diagnosis commands → root cause → fix |
+
+**7 issues fixed (all diagnosed via `kubectl describe` / `get -o yaml`):**
+1. `ai-inference` Pending — missing GPU toleration + wrong nodeSelector key (`node-type` vs `acme.io/node-type`)
+2. `web` Pending — oversized memory request (4Gi > node allocatable)
+3. `web` CrashLoopBackOff — ConfigMap name mismatch (`app-config` vs `web-config`)
+4. `web` image pull failure — invalid image tag (`latest` → `:v1.0`)
+5. `web` failing readiness probe — wrong probe port (8080 vs 80)
+6. `web` Service unreachable — selector/targetPort mismatch
+7. Smoke test DNS + connection failure — default-deny NetworkPolicy with no allow rules; added minimum egress (DNS to kube-system) + ingress (smoke-client to web-svc:80)
+
+Issue 6 (NetworkPolicy allow-rules) used AI assistance; all others were diagnosed and fixed manually. See `ai-usage/AI-USAGE_2026-06-20_204645.md`.
+
+---
+
+### Part 4 — CI/CD Migration (session 2026-06-21) ✅
+
+| File | Notes |
+|---|---|
+| `.github/workflows/ci.yml` | GitHub Actions: helm-lint (parallel) + build-scan-push (Semgrep → build → Trivy → push → write-back) |
+| `MIGRATION-NOTES.md` | All 7 legacy GitLab CI issues addressed, loop-prevention documented, secrets migration guide |
+| `src/requirements.txt` | Upgraded to patch starlette CVEs (caught by Trivy gate in first CI run) |
+
+**Key design:**
+- Trigger: `push` to `main` on `src/**` or `Dockerfile` only — excludes `helm/` so write-back commit doesn't loop
+- SAST gate: `semgrep scan --config auto src/ --error` — hard-fail, runs before Docker build
+- Image scan gate (bonus): `trivy-action@master`, `HIGH,CRITICAL`, `exit-code: 1`, `ignore-unfixed: true`
+- Push: `ghcr.io/${{ github.repository }}:${{ github.sha }}` — SHA only, no `:latest`
+- Write-back: `yq -i '.image.tag = strenv(SHA)' helm/quote-api/values.yaml` → commit `[skip ci]` → ArgoCD auto-syncs
+- `deploy_prod` deliberately not migrated — ArgoCD GitOps loop replaces imperative `kubectl set image`
+
+**Runtime issues that surfaced during CI runs (see `AI-USAGE-2026-06-21_105020.md`):**
+1. `trivy-action@0.28.0` tag doesn't exist → changed to `@master`
+2. `starlette==0.41.3` had 3 HIGH CVEs → upgraded fastapi+starlette via `pip freeze` re-capture
+3. GHCR push `permission_denied` — two-step fix: repo Actions permissions + package "Manage Actions access"
+
+**CI result:** Run #5 green. Write-back commit `869af72` updated `values.yaml` to full SHA.
+
+---
+
 ### What is NOT yet built
 
-- Part 3: troubleshoot/fixed-app.yaml + TROUBLESHOOTING.md
-- Parts 4–6: CI/CD, IaC, load test (pick ≥1)
+- Parts 5–6: IaC (Karpenter/Cloudflare), load test (optional tracks — pick ≥1 done)
 - Part 7: OPS-ANSWERS.md
 
 ---

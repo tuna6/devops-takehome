@@ -45,12 +45,26 @@ flowchart TD
     S0 --- A0 & A1 & A2 & A3
 
     classDef built fill:#e6f4ea,stroke:#34a853,color:#1a4d2e
+    classDef ci fill:#e8f0fe,stroke:#4285f4,color:#1a2d6e
+
+    subgraph CI["GitHub Actions CI (on push to src/** or Dockerfile)"]
+        SG["Semgrep SAST\n(hard-fail gate)"]:::ci
+        BUILD["docker build\n(load local)"]:::ci
+        TV["Trivy scan\nHIGH/CRITICAL gate"]:::ci
+        PUSH["docker push\n:SHA only"]:::ci
+        WB["yq write-back\nhelm/values.yaml\n[skip ci] commit"]:::ci
+        SG --> BUILD --> TV --> PUSH --> WB
+    end
+
     GHCR["ghcr.io/tuna6/devops-takehome:SHA\nFastAPI quote-api\n/healthz · /readyz · /metrics · /api/quote"]:::built
     ARGO["ArgoCD v3.4.4\n+ Helm chart"]:::built
     APP["quote-api pods ×3\n(2 spot · 1 on-demand)"]:::built
     INGRESS["Traefik Ingress\nhost:8080 → /api/quote"]:::built
+
+    PUSH -->|"push image"| GHCR
+    WB -->|"values.yaml SHA updated"| ARGO
+    ARGO -->|"detects git change\nauto-syncs"| APP
     A0 & A1 & A2 -->|"affinity + topology spread"| APP:::built
-    APP --> ARGO:::built
     GHCR -->|"image pull"| APP:::built
     LB --> INGRESS:::built
     INGRESS --> APP
@@ -108,7 +122,7 @@ The builder stage creates a venv at `/venv`, installs all deps, and is discarded
 `latest` is mutable and breaks reproducibility — the same tag can resolve to a different image on a re-run. Every push is tagged with the short git SHA (`ghcr.io/tuna6/devops-takehome:<sha>`), making deploys traceable to an exact commit.
 
 **All deps pinned including transitive**  
-`src/requirements.txt` pins all 16 packages (direct + transitive) at the exact versions produced by the first `pip install` run. This guarantees identical builds across machines and time.
+`src/requirements.txt` pins all 17 packages (direct + transitive) at exact versions captured from `pip freeze`. Upgraded in Part 4 to patch three HIGH-severity starlette CVEs (CVE-2025-62727, CVE-2026-48818, CVE-2026-54283): `fastapi` 0.115.5 → 0.138.0, `starlette` 0.41.3 → 1.3.1, `uvicorn` 0.32.1 → 0.49.0. All three CVEs were caught by the Trivy gate in CI — not by pre-flight code review.
 
 **Spot/on-demand placement: soft constraints over hard pins**  
 The assignment asks for "at least one replica always on the on-demand node" but also forbids hard-pinning all replicas to on-demand. These pull in opposite directions for a single Deployment. Three approaches were evaluated:
@@ -139,8 +153,16 @@ Both runs used the same chart config (weight:100 spot preference, `ScheduleAnywa
 
 The `scripts/25-reclaim-drill.sh` placement check surfaces this at drill time — it will print **WARN** when all-spot placement is observed (not an exit-1 failure) so the outcome is always recorded explicitly. The drill's PASS/FAIL gate is service survivability (curl loop gap ≤ 30 s), not placement split.
 
+**Part 4 CI/CD design decisions**
+
+- **Semgrep over SonarQube** — no external server or account required for public repos with `--config auto`; scan runs in-process and blocks the build before Docker even starts.
+- **`push: false, load: true` then explicit push** — builds the image into the local Docker daemon first so Trivy can scan it before it is published. The image only reaches GHCR after both gates (Semgrep + Trivy) pass.
+- **`deploy_prod` not migrated** — imperative `kubectl set image` is replaced by the yq write-back + ArgoCD GitOps loop. CI's responsibility ends at publishing a scanned, tagged image and committing the new tag to `helm/quote-api/values.yaml`. ArgoCD detects the commit and reconciles the cluster automatically.
+- **Loop prevention: two layers** — `paths: [src/**, Dockerfile]` ensures the write-back commit (which only touches `helm/quote-api/values.yaml`) does not re-trigger CI. `[skip ci]` in the commit message is belt-and-suspenders. A third implicit layer: GitHub does not re-trigger workflows for pushes made by `GITHUB_TOKEN`.
+- **Full SHA tag, not short SHA** — CI uses `${{ github.sha }}` (40 chars) for the image tag and values.yaml write-back. `scripts/10-build-push.sh` (the manual dev-path) uses `git rev-parse --short HEAD` (7 chars). These are intentionally different: CI tags are immutable and unambiguous; the manual script is a convenience tool, not a production path.
+
 **What was cut**  
-Parts 3–7 are not yet implemented. Part 1 (build & ship) and Part 2 (GitOps deployment, placement, reclaim drill) are complete.
+Parts 5, 6, and 7 are not implemented. Parts 1–4 are complete.
 
 ---
 
