@@ -19,6 +19,8 @@ QUOTES = [
     {"quote": "Make it work, make it right, make it fast.", "author": "Kent Beck"},
     {"quote": "Premature optimization is the root of all evil.", "author": "Donald Knuth"},
     {"quote": "Talk is cheap. Show me the code.", "author": "Linus Torvalds"},
+    {"quote": "Just a test CI", "author": "tuna6"},
+
 ]
 
 quote_requests_total = Counter(
