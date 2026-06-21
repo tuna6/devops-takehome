@@ -1,0 +1,894 @@
+=== 2026-06-21T13:36:09Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h7m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h50m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h12m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:36:19Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h7m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h50m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h12m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:36:30Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h7m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h50m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h12m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:36:40Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 7%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h7m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h50m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h12m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:36:51Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 7%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-825fx   0/1     Pending   0          0s      <none>       <none>                    <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h8m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h51m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h12m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:37:02Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 130%/70%   3         8         3          32h
+NAME                        READY   STATUS        RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-825fx   1/1     Terminating   0          11s     10.42.0.85   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-clcfd   1/1     Terminating   0          11s     10.42.1.49   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running       0          3h8m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running       0          7h51m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-q9p92   1/1     Terminating   0          11s     10.42.0.84   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running       0          3h13m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:37:13Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 334%/70%   3         8         3          32h
+NAME                        READY   STATUS        RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-825fx   1/1     Terminating   0          21s     10.42.0.85   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-b5gm4   0/1     Terminating   0          6s      10.42.1.51   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-clcfd   1/1     Terminating   0          21s     10.42.1.49   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running       0          3h8m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-hndvb   0/1     Terminating   0          6s      10.42.0.86   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running       0          7h51m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-q9p92   1/1     Terminating   0          21s     10.42.0.84   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-swlw5   0/1     Terminating   0          6s      10.42.1.50   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running       0          3h13m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:37:23Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 422%/70%   3         8         3          32h
+NAME                        READY   STATUS        RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-825fx   1/1     Terminating   0          31s     10.42.0.85   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-b5gm4   1/1     Terminating   0          16s     10.42.1.51   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-clcfd   1/1     Terminating   0          31s     10.42.1.49   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-dfn7w   0/1     Terminating   0          1s      <none>       k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running       0          3h8m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-hndvb   1/1     Terminating   0          16s     10.42.0.86   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running       0          7h51m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-kbhm4   0/1     Terminating   0          1s      <none>       k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-q9p92   1/1     Terminating   0          31s     10.42.0.84   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-swlw5   1/1     Terminating   0          16s     10.42.1.50   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running       0          3h13m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-wdrq6   0/1     Terminating   0          1s      <none>       k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:37:33Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 422%/70%   3         8         3          32h
+NAME                        READY   STATUS        RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-b5gm4   1/1     Terminating   0          26s     10.42.1.51   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-dfn7w   1/1     Terminating   0          11s     10.42.0.87   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running       0          3h8m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-hndvb   1/1     Terminating   0          26s     10.42.0.86   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running       0          7h51m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-kbhm4   1/1     Terminating   0          11s     10.42.1.52   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-swlw5   1/1     Terminating   0          26s     10.42.1.50   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running       0          3h13m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-wdrq6   1/1     Terminating   0          11s     10.42.1.53   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:37:44Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 480%/70%   3         8         3          32h
+NAME                        READY   STATUS        RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-dfn7w   1/1     Terminating   0          22s     10.42.0.87   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running       0          3h8m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running       0          7h51m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-kbhm4   1/1     Terminating   0          22s     10.42.1.52   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running       0          3h13m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-wdrq6   1/1     Terminating   0          22s     10.42.1.53   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:37:54Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 498%/70%   3         8         3          32h
+NAME                        READY   STATUS        RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-dfn7w   0/1     Error         0          32s     10.42.0.87   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   0/1     Running       0          2s      10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running       0          3h9m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-gqmjj   0/1     Running       0          2s      10.42.0.91   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running       0          7h52m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-kbhm4   1/1     Terminating   0          32s     10.42.1.52   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-rjbbx   0/1     Running       0          2s      10.42.0.90   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running       0          3h13m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-wdrq6   1/1     Terminating   0          32s     10.42.1.53   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:38:04Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 498%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          12s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h9m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-gqmjj   1/1     Running   0          12s     10.42.0.91   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h52m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-rjbbx   1/1     Running   0          12s     10.42.0.90   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h14m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:38:14Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 500%/70%   3         8         6          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-4d7q6   0/1     Running   0          7s      10.42.1.56   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-75gww   0/1     Running   0          7s      10.42.0.92   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          22s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h9m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-gqmjj   1/1     Running   0          22s     10.42.0.91   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h52m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-rjbbx   1/1     Running   0          22s     10.42.0.90   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h14m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:38:24Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 442%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-4d7q6   1/1     Running   0          17s     10.42.1.56   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-75gww   1/1     Running   0          17s     10.42.0.92   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          32s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h9m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-gqmjj   1/1     Running   0          32s     10.42.0.91   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h52m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-rjbbx   1/1     Running   0          32s     10.42.0.90   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h14m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:38:34Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 442%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-4d7q6   1/1     Running   0          28s     10.42.1.56   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-75gww   1/1     Running   0          28s     10.42.0.92   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          43s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-fxvcb   1/1     Running   0          3h9m    10.42.0.80   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-gqmjj   1/1     Running   0          43s     10.42.0.91   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h52m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-rjbbx   1/1     Running   0          43s     10.42.0.90   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h14m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:38:45Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 406%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-cj2jz   0/1     Running   0          7s      10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          53s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h52m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   0/1     Running   0          7s      10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   0/1     Running   0          7s      10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h14m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:38:55Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 295%/70%   3         8         6          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   0/1     Running   0          3s      10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   0/1     Running   0          3s      10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          17s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          63s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h53m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          17s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          17s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h14m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:39:05Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 295%/70%   3         8         6          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          13s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          13s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          27s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          73s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h53m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          27s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          27s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h15m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:39:15Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 131%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          23s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          23s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          37s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          83s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h53m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          37s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          37s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h15m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:39:26Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 161%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          34s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          34s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          48s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          94s     10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h53m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          48s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          48s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h15m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:39:36Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 161%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          44s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          44s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          58s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          104s    10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h53m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          58s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          58s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h15m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:39:46Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 413%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          54s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          54s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          68s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          114s    10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h53m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          68s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          68s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h15m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:39:56Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 442%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          64s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          64s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          78s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          2m4s    10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h54m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          78s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          78s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h15m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:40:06Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 442%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          74s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          74s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          88s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          2m14s   10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h54m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          88s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          88s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h16m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:40:16Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 445%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          85s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          85s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          99s     10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          2m25s   10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h54m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          99s     10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          99s     10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h16m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:40:27Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 483%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          95s     10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          95s     10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          109s    10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          2m35s   10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h54m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          109s    10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          109s    10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h16m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:40:37Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 483%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          105s    10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          105s    10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          119s    10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          2m45s   10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h54m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          119s    10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          119s    10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h16m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:40:47Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 488%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          115s    10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          115s    10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          2m9s    10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          2m55s   10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h54m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          2m9s    10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          2m9s    10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h16m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:40:57Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 492%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          2m5s    10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          2m5s    10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          2m19s   10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          3m5s    10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h55m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          2m19s   10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          2m19s   10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h16m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:41:07Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 492%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Running   0          2m16s   10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   1/1     Running   0          2m16s   10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   1/1     Running   0          2m30s   10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          3m16s   10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h55m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Running   0          2m30s   10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Running   0          2m30s   10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h17m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:41:18Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 498%/70%   3         8         8          32h
+NAME                        READY   STATUS        RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-2scvg   1/1     Terminating   0          2m27s   10.42.1.57   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-bjnhq   0/1     Completed     0          2m27s   10.42.0.96   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-cj2jz   0/1     Completed     0          2m41s   10.42.0.94   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running       0          3m27s   10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running       0          7h55m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-mzj4m   1/1     Terminating   0          2m41s   10.42.0.95   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-pz9rq   1/1     Terminating   0          2m41s   10.42.0.93   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running       0          3h17m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:41:29Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 500%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP           NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   0/1     Running   0          6s      10.42.0.97   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          3m37s   10.42.1.55   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   0/1     Running   0          6s      10.42.0.99   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h55m   10.42.2.19   k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h17m   10.42.1.44   k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   0/1     Running   0          6s      10.42.0.98   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:41:39Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 341%/70%   3         8         6          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          16s     10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          3m47s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          16s     10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h55m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   0/1     Running   0          1s      10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   0/1     Running   0          1s      10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h17m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          16s     10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:41:49Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 341%/70%   3         8         6          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          26s     10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          3m57s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          26s     10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h55m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          11s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          11s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h17m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          26s     10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:41:59Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 121%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          37s     10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          4m8s    10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          37s     10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h56m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          22s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          22s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h17m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          37s     10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:42:10Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 320%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          47s     10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          4m18s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          47s     10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h56m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          32s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          32s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h18m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          47s     10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:42:20Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 320%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          57s     10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          4m28s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          57s     10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h56m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          42s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          42s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h18m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          57s     10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:42:31Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 484%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          69s     10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          4m40s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          69s     10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h56m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          54s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          54s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h18m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          69s     10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:42:42Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 495%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          79s     10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          4m50s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          79s     10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h56m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          64s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          64s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h18m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          79s     10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:42:52Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 495%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          89s     10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          5m      10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          89s     10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h57m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          74s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          74s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h18m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          89s     10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:43:02Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 500%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          100s    10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          5m11s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          100s    10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h57m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          85s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          85s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h19m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          100s    10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:43:13Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 500%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          111s    10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          5m22s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          111s    10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h57m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          96s     10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          96s     10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h19m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          111s    10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:43:24Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 468%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          2m1s    10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          5m32s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          2m1s    10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h57m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          106s    10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          106s    10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h19m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          2m1s    10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:43:34Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 468%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          2m12s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          5m43s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          2m12s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h57m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          117s    10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          117s    10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h19m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          2m12s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:43:45Z ===
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 268%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          2m22s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          5m53s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          2m22s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h57m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          2m7s    10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          2m7s    10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h19m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          2m22s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:43:55Z ===
+NAME        REFERENCE              TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 22%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          2m32s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          6m3s    10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          2m32s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h58m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          2m17s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          2m17s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h19m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          2m32s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:44:05Z ===
+NAME        REFERENCE              TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 22%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          2m42s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          6m13s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          2m42s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h58m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          2m27s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          2m27s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h20m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          2m42s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:44:15Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 8%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          2m53s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          6m24s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          2m53s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h58m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          2m38s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          2m38s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h20m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          2m53s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:44:26Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          3m3s    10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          6m34s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          3m3s    10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h58m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          2m48s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          2m48s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h20m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          3m3s    10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:44:36Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          3m13s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          6m44s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          3m13s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h58m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          2m58s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          2m58s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h20m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          3m13s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:44:46Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          3m23s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          6m54s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          3m23s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h58m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          3m8s    10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          3m8s    10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h20m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          3m23s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:44:56Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          3m34s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          7m5s    10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          3m34s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h59m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          3m19s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          3m19s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h20m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          3m34s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:45:07Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          3m44s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          7m15s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          3m44s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h59m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          3m29s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          3m29s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h21m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          3m44s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:45:17Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          3m54s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          7m25s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          3m54s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h59m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          3m39s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          3m39s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h21m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          3m54s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:45:27Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          4m4s    10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          7m35s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          4m4s    10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h59m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          3m49s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          3m49s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h21m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          4m4s    10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:45:37Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          4m15s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          7m46s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          4m15s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h59m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          4m      10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          4m      10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h21m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          4m15s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:45:48Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          4m25s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          7m56s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          4m25s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          7h59m   10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          4m10s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          4m10s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h21m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          4m25s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:45:58Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          4m35s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          8m6s    10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          4m35s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          4m20s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          4m20s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h21m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          4m35s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:46:08Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Running   0          4m45s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          8m16s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Running   0          4m45s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   1/1     Running   0          4m30s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Running   0          4m30s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h22m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Running   0          4m45s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:46:18Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS        RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-77vsd   1/1     Terminating   0          4m56s   10.42.0.97    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running       0          8m27s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-hwm9w   1/1     Terminating   0          4m56s   10.42.0.99    k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running       0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-lr4fs   0/1     Completed     0          4m41s   10.42.0.100   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-s6gkc   1/1     Terminating   0          4m41s   10.42.1.58    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running       0          3h22m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tsfwl   1/1     Terminating   0          4m56s   10.42.0.98    k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:46:29Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         3          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   0/1     Running   0          6s      10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          8m37s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   0/1     Running   0          6s      10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   0/1     Running   0          6s      10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h22m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+
+=== 2026-06-21T13:46:39Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         6          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          16s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          8m47s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          16s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          16s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   0/1     Running   0          1s      10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h22m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   0/1     Running   0          1s      10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:46:49Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         6          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          26s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          8m57s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          26s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          26s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          11s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h22m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          11s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:46:59Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          37s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          9m8s    10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          37s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          37s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          22s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h22m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          22s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:47:10Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          47s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          9m18s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          47s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          47s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          32s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h23m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          32s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:47:20Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          58s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          9m29s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          58s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          58s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          43s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h23m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          43s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:47:31Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          68s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          9m39s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          68s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          68s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          53s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h23m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          53s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:47:41Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          78s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          9m49s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          78s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          78s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          63s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h23m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          63s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:47:51Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          88s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          9m59s   10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          88s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          88s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          73s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h23m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          73s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:48:01Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          99s     10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          10m     10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          99s     10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          99s     10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          84s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h24m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          84s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
+=== 2026-06-21T13:48:12Z ===
+NAME        REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+quote-api   Deployment/quote-api   cpu: 2%/70%   3         8         8          32h
+NAME                        READY   STATUS    RESTARTS   AGE     IP            NODE                      NOMINATED NODE   READINESS GATES
+quote-api-6f8b7d4f9-bpr7f   1/1     Running   0          109s    10.42.0.101   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-fm2nn   1/1     Running   0          10m     10.42.1.55    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-jsnh8   1/1     Running   0          8h      10.42.2.19    k3d-elsa-devops-agent-2   <none>           <none>
+quote-api-6f8b7d4f9-r46t6   1/1     Running   0          109s    10.42.0.102   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-rx694   1/1     Running   0          109s    10.42.1.59    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-s948w   1/1     Running   0          94s     10.42.0.104   k3d-elsa-devops-agent-0   <none>           <none>
+quote-api-6f8b7d4f9-tb7kj   1/1     Running   0          3h24m   10.42.1.44    k3d-elsa-devops-agent-1   <none>           <none>
+quote-api-6f8b7d4f9-xp59w   1/1     Running   0          94s     10.42.0.103   k3d-elsa-devops-agent-0   <none>           <none>
+
