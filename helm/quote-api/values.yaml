@@ -6,11 +6,9 @@
 #   Memory: Python 3.12 Alpine + FastAPI + uvicorn idle ≈ 50–60 MB; 128Mi gives 2× headroom.
 image:
   repository: ghcr.io/tuna6/devops-takehome
-  tag: "2c94e39"
+  tag: "b91894e7396f5fd7c01bd3066aaf377a1f9fab7e"
   pullPolicy: IfNotPresent
-
 replicaCount: 3
-
 resources:
   requests:
     cpu: 100m
@@ -18,12 +16,10 @@ resources:
   limits:
     cpu: 500m
     memory: 256Mi
-
 service:
   type: ClusterIP
   port: 80
   targetPort: 8000
-
 ingress:
   enabled: true
   # k3d v5.9.0 ships k3s v1.35.5 which bundles Traefik v2 by default.
@@ -33,7 +29,6 @@ ingress:
   # from the host works without a /etc/hosts entry (Traefik's load-balancer port
   # is mapped host:8080 → cluster:80 in scripts/00-bootstrap-cluster.sh).
   host: ""
-
 hpa:
   minReplicas: 3
   # maxReplicas=8: at the 70% CPU threshold, 8 pods can sustain ~5.6 RPS aggregate
@@ -41,7 +36,6 @@ hpa:
   # without allowing unbounded scale-out on a shared local k3d cluster.
   maxReplicas: 8
   targetCPUUtilizationPercentage: 70
-
 # minAvailable=2 out of minReplicas=3: one pod can be disrupted at a time during
 # node drains or rolling updates while maintaining >50% capacity.
 pdb:
