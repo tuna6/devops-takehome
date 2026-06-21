@@ -6,7 +6,7 @@
 #   Memory: Python 3.12 Alpine + FastAPI + uvicorn idle ≈ 50–60 MB; 128Mi gives 2× headroom.
 image:
   repository: ghcr.io/tuna6/devops-takehome
-  tag: "b91894e7396f5fd7c01bd3066aaf377a1f9fab7e"
+  tag: "e0eb815ee7a71addbd6191db5c83778202c61d70"
   pullPolicy: IfNotPresent
 replicaCount: 3
 resources:
