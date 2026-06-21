@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: quote-api
+  namespace: monitoring
+  labels:
+    # REQUIRED: the Prometheus CR's serviceMonitorSelector requires this label.
+    # Verified via: kubectl get prometheus -n monitoring -o yaml | grep -A5 serviceMonitorSelector
+    # Result: matchLabels: release: kube-prometheus-stack
+    release: kube-prometheus-stack
+spec:
+  # serviceMonitorNamespaceSelector: {} (verified) — Prometheus watches all namespaces,
+  # so we can declare the ServiceMonitor in "monitoring" and target "quote-api" namespace.
+  namespaceSelector:
+    matchNames:
+      - quote-api
+  selector:
+    matchLabels:
+      # These exact labels are on the quote-api Service (verified via kubectl get svc -n quote-api -o yaml):
+      #   app.kubernetes.io/name: quote-api
+      #   app.kubernetes.io/instance: quote-api
+      app.kubernetes.io/name: quote-api
+      app.kubernetes.io/instance: quote-api
+  endpoints:
+    - port: http          # Named port on the Service: port 80 named "http" (targetPort: 8000)
+      path: /metrics      # Endpoint from src/main.py: @app.get("/metrics")
+      interval: 15s

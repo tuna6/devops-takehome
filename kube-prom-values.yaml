@@ -1,0 +1,34 @@
+# kube-prometheus-stack Helm values — chart 86.3.2
+#
+# serviceMonitorSelector behaviour in this chart:
+#   The chart default `serviceMonitorSelectorNilUsesHelmValues: true` intercepts any `{}`
+#   (nil/empty) value for serviceMonitorSelector and replaces it with a selector derived
+#   from the Helm release labels — specifically `matchLabels: {release: kube-prometheus-stack}`.
+#   Setting serviceMonitorSelector: {} here does NOT produce an "all ServiceMonitors" selector;
+#   it produces the same Helm-label selector as the default.
+#
+#   Verified post-install: kubectl get prometheus -n monitoring -o yaml | grep -A5 serviceMonitorSelector
+#   Result: matchLabels: {release: kube-prometheus-stack}
+#
+#   Consequence: every ServiceMonitor that Prometheus should scrape MUST carry the label
+#   `release: kube-prometheus-stack` in its own metadata.labels. Our ServiceMonitor in
+#   monitoring/servicemonitor.yaml already has this label — no further action needed.
+#
+#   To make serviceMonitorSelector: {} genuinely mean "all ServiceMonitors", you would need
+#   to also set `serviceMonitorSelectorNilUsesHelmValues: false`. That is not set here
+#   because the label-gated default is correct: it prevents Prometheus from accidentally
+#   picking up ServiceMonitors from unrelated chart installs in the same cluster.
+prometheus:
+  prometheusSpec:
+    # Short retention: this cluster is ephemeral; data only needed during the load test.
+    retention: 6h
+
+# Grafana persistence is only needed if you want saved dashboards to survive pod restarts.
+# For this assignment the dashboard JSON is committed to the repo; no PVC needed.
+grafana:
+  persistence:
+    enabled: false
+  # imageRenderer: headless-Chromium sidecar that enables /render/... PNG export from the
+  # Grafana API. Required for programmatic screenshot capture during the load test.
+  imageRenderer:
+    enabled: true

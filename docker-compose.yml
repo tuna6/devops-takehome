@@ -10,20 +10,10 @@ services:
       KUBECONFIG: /workspace/.kube/config
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    ports:
+      - "9090:9090"   # Prometheus port-forward
+      - "3000:3000"   # Grafana port-forward
     volumes:
       - ./:/workspace:rw
       - /var/run/docker.sock:/var/run/docker.sock:rw
     restart: unless-stopped
-
-  bootstrap:
-    image: elsa-devops-toolbox:local
-    depends_on:
-      - toolbox
-    working_dir: /workspace
-    command: ["/workspace/scripts/00-bootstrap-cluster.sh"]
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    volumes:
-      - ./:/workspace:rw
-      - /var/run/docker.sock:/var/run/docker.sock:rw
-    restart: "no"

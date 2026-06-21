@@ -58,8 +58,10 @@ flowchart TD
 
     GHCR["ghcr.io/tuna6/devops-takehome:SHA\nFastAPI quote-api\n/healthz · /readyz · /metrics · /api/quote"]:::built
     ARGO["ArgoCD v3.4.4\n+ Helm chart"]:::built
-    APP["quote-api pods ×3\n(2 spot · 1 on-demand)"]:::built
+    APP["quote-api pods ×3–8\n(spot-preferred · GPU excluded)"]:::built
     INGRESS["Traefik Ingress\nhost:8080 → /api/quote"]:::built
+    PROM["Prometheus v3.12.0\nmonitoring namespace\n(kube-prometheus-stack)"]:::built
+    GRAF["Grafana 13.0.2\n+ image renderer\nmonitoring namespace"]:::built
 
     PUSH -->|"push image"| GHCR
     WB -->|"values.yaml SHA updated"| ARGO
@@ -68,6 +70,10 @@ flowchart TD
     GHCR -->|"image pull"| APP:::built
     LB --> INGRESS:::built
     INGRESS --> APP
+    PROM -->|"scrape /metrics\n(ServiceMonitor, 15 s)"| APP
+    PROM -.->|"datasource"| GRAF
+    TB -->|"port-forward :9090/:3000\n(not via Ingress)"| PROM
+    TB -->|"render API → PNG screenshot\n(60-loadtest.sh)"| GRAF
 ```
 
 > **Node labels** (applied by `troubleshoot/prepare.sh` during bootstrap):  
@@ -85,7 +91,9 @@ flowchart TD
 | `scripts/10-build-push.sh` | Builds the `quote-api` Docker image, tags it with the current git SHA (`ghcr.io/tuna6/devops-takehome:<sha>`), and pushes to GHCR. Idempotent — re-running with the same SHA rebuilds and re-pushes safely. Reads `GITHUB_TOKEN` env var for login if provided; otherwise assumes `docker login ghcr.io` has already been run. | Run once after cloning (image is pre-built at the SHA in this repo). Re-run after any code change in `src/`. |
 | `scripts/20-deploy.sh` | Installs ArgoCD (v3.4.4, idempotent) and applies the `quote-api` ArgoCD Application pointing at the Helm chart in this repo. Waits for Synced + Healthy. | Run automatically by `run-all.sh`. Re-runnable to check ArgoCD state. |
 | `scripts/25-reclaim-drill.sh` | Spot-node reclaim drill: picks a spot node running a quote-api pod, starts a curl loop, cordons + drains the node (respecting PDB), shows pod rescheduling, then uncordons. Exits 0 if the service stayed reachable within the gap tolerance; prints a placement PASS/WARN (not a hard gate). | Run manually inside the toolbox. Not in `run-all.sh` — node drain is disruptive and requires explicit intent. |
-| `scripts/run-all.sh` | Waits for the compose bootstrap container to finish, then runs the numbered scripts in order inside the toolbox. | `./scripts/run-all.sh` from the host after `docker compose up -d`. |
+| `scripts/60-loadtest.sh` | Part 6 observability and load test: installs kube-prometheus-stack (Prometheus + Grafana + image renderer) via Helm, applies the ServiceMonitor for `/metrics` scraping, waits for Prometheus to confirm `up{job="quote-api"}=1`, then runs the k6 7-minute ramp test against the Ingress. HPA will scale quote-api from 3 to up to 8 replicas during the run. Idempotent — skips the Helm install if the release already exists. | Run automatically by `run-all.sh`. Takes ~10–15 min total (Helm install + k6 run). Requires `scripts/20-deploy.sh` to have completed first. |
+| `scripts/99-teardown.sh` | Deletes the k3d cluster and brings down the compose stack. Handles both the case where the toolbox is running (uses `k3d cluster delete` inside it) and the case where it is not (removes cluster containers/network/volumes directly). | Run from the **host** (not inside the toolbox) when you want to fully reset the environment. |
+| `scripts/run-all.sh` | Waits for the compose bootstrap container to finish, then runs the numbered scripts in order inside the toolbox (`20-deploy.sh`, `60-loadtest.sh`). | `./scripts/run-all.sh` from the host after `docker compose up -d`. |
 
 ---
 
@@ -161,8 +169,18 @@ The `scripts/25-reclaim-drill.sh` placement check surfaces this at drill time �
 - **Loop prevention: two layers** — `paths: [src/**, Dockerfile]` ensures the write-back commit (which only touches `helm/quote-api/values.yaml`) does not re-trigger CI. `[skip ci]` in the commit message is belt-and-suspenders. A third implicit layer: GitHub does not re-trigger workflows for pushes made by `GITHUB_TOKEN`.
 - **Full SHA tag, not short SHA** — CI uses `${{ github.sha }}` (40 chars) for the image tag and values.yaml write-back. `scripts/10-build-push.sh` (the manual dev-path) uses `git rev-parse --short HEAD` (7 chars). These are intentionally different: CI tags are immutable and unambiguous; the manual script is a convenience tool, not a production path.
 
+**Part 6 observability design decisions**
+
+- **kube-prometheus-stack installed via plain Helm, not an ArgoCD Application** — it is third-party observability infrastructure, not "our app's chart." Putting it in ArgoCD would make the ArgoCD Application depend on itself (the CRDs it installs are required for the Application to be applied), creating a chicken-and-egg bootstrap problem. Helm with `--wait` is the correct tool for infra that must be ready before the next step runs.
+
+- **ServiceMonitor as a standalone manifest (`monitoring/servicemonitor.yaml`), not inside `helm/quote-api/templates/`** — if it lived in the app chart, `scripts/20-deploy.sh` would fail on a fresh cluster: ArgoCD applies the Helm chart immediately after install, but kube-prometheus-stack (which provides the `ServiceMonitor` CRD) isn't installed until `scripts/60-loadtest.sh` runs later. The standalone apply in `60-loadtest.sh` step 2 runs after step 1 guarantees the CRD exists.
+
+- **Grafana "latency" panel uses CPU throttle ratio as a proxy, not a true p95 histogram** — `src/main.py`'s `/metrics` endpoint exposes only a request counter (`quote_requests_total`); no histogram or summary was added, so there is no server-side data to compute Prometheus-native latency percentiles from. The CPU CFS throttle ratio (`cfs_throttled_periods / cfs_periods`) is used instead because throttling is the direct mechanism that extends per-request wall time in this app. This is a known limitation and is stated explicitly rather than hidden. Real p95 latency numbers do exist — from k6's client-side measurements (172ms at peak, used for the k6 threshold and reported in `LOADTEST.md`) — they just cannot be served from a Prometheus panel without adding a histogram to the app.
+
+- **k6 thresholds and the PrometheusRule alert threshold were both derived from real measured run data, not generic numbers** — the initial k6 threshold (`p(95)<2000ms`) was derived from a queuing model and passed at 178ms (over 10× margin — effectively a no-op gate). It was caught, the model was corrected (FastAPI anyio thread pool, not serial), and the threshold tightened to `p(95)<400ms` (2.2× the observed 172–179ms), then re-verified. The PrometheusRule alert threshold (≥30% CPU throttle ratio) was set at 2.1× the 14% peak observed during the load test. Full story in `ai-usage/AI-USAGE-2026-06-21_174703-part6.md`.
+
 **What was cut**  
-Parts 5, 6, and 7 are not implemented. Parts 1–4 are complete.
+Parts 5 and 7 are not implemented. Parts 1–4 and 6 are complete.
 
 ---
 

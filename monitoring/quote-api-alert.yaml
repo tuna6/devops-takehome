@@ -1,0 +1,63 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: quote-api-alerts
+  namespace: monitoring
+  labels:
+    # REQUIRED: Prometheus CR ruleSelector requires this label.
+    # Verified: kubectl get prometheus -n monitoring -o yaml | grep -A4 ruleSelector
+    # Result: matchLabels: {release: kube-prometheus-stack}
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: quote-api.rules
+      interval: 30s
+      rules:
+        - alert: QuoteApiHighCpuThrottle
+          # Alert choice: CPU throttle ratio (latency proxy) rather than error rate.
+          # Justification: under the full 20-VU / 8-replica load test, error rate stayed
+          # at 0.10-0.18% (all transient 502s from Traefik during pod scale-in), never
+          # approaching 1%. Error rate is not a useful alerting signal for this service —
+          # the bottleneck is CPU, not connection capacity. CPU throttle ratio is the
+          # direct mechanism that extends per-request wall time: when the 500m cgroup
+          # quota is depleted, all inflight thread CPU-burns are paused, stretching
+          # response times proportionally. Confirmed via cgroup cpu.stat:
+          #   nr_throttled/nr_periods = 5213/48333 = 10.8% (pod jsnh8)
+          #   nr_throttled/nr_periods = 6034/44380 = 13.6% (pod csjf9)
+          #   throttled_usec = 226-291 seconds cumulative, captured 2026-06-21T09:55:59Z
+          #
+          # Threshold derivation:
+          #   Observed peak during 20-VU / maxReplicas-8 load test: 10-14% throttle ratio.
+          #   At 14% throttle, k6 measured p95 = 172-179ms (well within the 400ms SLA).
+          #   Alert fires at >= 30% sustained for 2 minutes.
+          #   30% = ~2.1× the observed 14% peak under heavy intentional load.
+          #   This level would only be reached if:
+          #     (a) traffic is roughly double the tested level AND HPA is already at
+          #         maxReplicas=8 (cannot scale further), OR
+          #     (b) HPA stalls / replicas fail to schedule and fewer pods absorb load.
+          #   Either scenario causes p95 > 300ms (extrapolating linear throttle→latency
+          #   relationship from cgroup data), approaching the 400ms k6 SLA threshold.
+          #
+          #   Not set lower (e.g., 15%): would fire during normal heavy load even when
+          #   HPA is scaling correctly — false positives on every high-traffic period.
+          #   Not set higher (e.g., 50%): would only fire after severe degradation is
+          #   already user-visible and persistent.
+          expr: |
+            (
+              sum(rate(container_cpu_cfs_throttled_periods_total{container="quote-api",namespace="quote-api"}[2m]))
+              /
+              sum(rate(container_cpu_cfs_periods_total{container="quote-api",namespace="quote-api"}[2m]))
+            ) >= 0.30
+          for: 2m
+          labels:
+            severity: warning
+            service: quote-api
+          annotations:
+            summary: "quote-api CPU throttle ratio >= 30% for 2 minutes"
+            description: >
+              quote-api pods are CPU-throttled in {{ "{{ $value | humanizePercentage }}" }} of
+              cgroup scheduling periods over the last 2 minutes.
+              Peak observed during load test: 10-14%. >= 30% indicates traffic
+              is significantly beyond the tested ceiling or HPA is unable to scale.
+              Check HPA status: kubectl get hpa -n quote-api
+              Check pod count: kubectl get pods -n quote-api

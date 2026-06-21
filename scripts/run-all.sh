@@ -30,3 +30,4 @@ printf 'Bootstrap confirmed complete. Running scripts inside toolbox...\n'
 # intentionally excluded from the reviewer path — the image is pre-published.
 
 docker exec "${TOOLBOX}" /workspace/scripts/20-deploy.sh
+docker exec "${TOOLBOX}" /workspace/scripts/60-loadtest.sh

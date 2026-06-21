@@ -176,9 +176,15 @@ Issue 6 (NetworkPolicy allow-rules) used AI assistance; all others were diagnose
 
 ---
 
+### Part 6 — Load Test & Observability (2026-06-21) ✅
+
+kube-prometheus-stack (chart 86.3.2, Prometheus v3.12.0, Grafana 13.0.2 + image renderer) in `monitoring/` namespace. ServiceMonitor, Grafana dashboard JSON, PrometheusRule alert, k6 run (25,714 req, 61.2 RPS avg, p95=172ms, PASSED), HPA scale-out proof (3→8 in one jump, t≈0:50), Grafana screenshot during peak load. Key files: `monitoring/servicemonitor.yaml`, `monitoring/grafana-dashboard.json`, `monitoring/quote-api-alert.yaml`, `docs/screenshots/loadtest-grafana.png`, `LOADTEST.md`.
+
+Alert: `QuoteApiHighCpuThrottle` — ≥30% CPU throttle ratio for 2m (2.1× the 14% peak observed; loaded in Prometheus, verified via rules API). Dashboard uid: `quote-api-loadtest`. AI-USAGE: `ai-usage/AI-USAGE-2026-06-21_174703-part6.md`.
+
 ### What is NOT yet built
 
-- Parts 5–6: IaC (Karpenter/Cloudflare), load test (optional tracks — pick ≥1 done)
+- Part 5: IaC (Karpenter/Cloudflare)
 - Part 7: OPS-ANSWERS.md
 
 ---
