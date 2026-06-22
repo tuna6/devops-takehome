@@ -2,7 +2,8 @@
 # Run from the HOST (not inside the toolbox container):
 #   ./scripts/99-teardown.sh
 #
-# Deletes the k3d cluster and brings down the compose stack.
+# Full destroy: deletes the k3d cluster, brings down the compose stack,
+# and removes all local Docker images created for this project.
 # Safe to run even if the cluster or stack is already partially down.
 set -euo pipefail
 
@@ -12,9 +13,10 @@ CLUSTER_NAME=elsa-devops
 
 cd "$REPO_ROOT"
 
+# ---------------------------------------------------------------------------
+# 1. Delete k3d cluster
+# ---------------------------------------------------------------------------
 printf 'Deleting k3d cluster "%s"...\n' "$CLUSTER_NAME"
-# k3d lives inside the toolbox image. Use exec if toolbox is running;
-# otherwise remove the cluster containers/network/volume directly.
 if docker ps --format '{{.Names}}' | grep -q '^elsa-devops-toolbox$'; then
   docker exec elsa-devops-toolbox k3d cluster delete "$CLUSTER_NAME" 2>/dev/null || true
 else
@@ -26,7 +28,31 @@ else
     | xargs -r docker volume rm 2>/dev/null || true
 fi
 
-printf 'Bringing down compose stack...\n'
-docker compose down -v
+# ---------------------------------------------------------------------------
+# 2. Bring down compose stack and remove compose-built images
+# ---------------------------------------------------------------------------
+printf 'Bringing down compose stack and removing built images...\n'
+docker compose down -v --rmi local
 
-printf 'Teardown complete. Bring everything back up with: docker compose up -d\n'
+# ---------------------------------------------------------------------------
+# 3. Stop and remove any leftover project containers (outside compose stack)
+# ---------------------------------------------------------------------------
+printf 'Removing leftover project containers...\n'
+docker ps -a --filter "name=quote-api" --format '{{.Names}}' \
+  | xargs -r docker rm -f 2>/dev/null || true
+
+# ---------------------------------------------------------------------------
+# 4. Remove all project-related Docker images
+# ---------------------------------------------------------------------------
+printf 'Removing project images...\n'
+
+# Collect image IDs across all patterns, deduplicate, then remove in one pass
+{
+  docker images --filter "reference=ghcr.io/k3d-io/*"           --format '{{.ID}}'
+  docker images --filter "reference=rancher/k3s"                 --format '{{.ID}}'
+  docker images --filter "reference=ghcr.io/tuna6/devops-takehome" --format '{{.ID}}'
+  docker images --filter "reference=quote-api-test"              --format '{{.ID}}'
+} | sort -u | xargs -r docker rmi -f 2>/dev/null || true
+
+printf '\nTeardown complete. All local images removed.\n'
+printf 'Bring everything back up with: docker compose up -d\n'

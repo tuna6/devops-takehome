@@ -1,8 +1,27 @@
+name: devops-takehome
+
 services:
+  bootstrap:
+    build:
+      context: ./toolbox
+    image: elsa-devops-toolbox:local
+    pull_policy: never
+    container_name: devops-takehome-bootstrap-1
+    restart: "no"
+    command: ["/workspace/scripts/00-bootstrap-cluster.sh"]
+    environment:
+      KUBECONFIG: /workspace/.kube/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./:/workspace:rw
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+
   toolbox:
     build:
       context: ./toolbox
     image: elsa-devops-toolbox:local
+    pull_policy: never
     container_name: elsa-devops-toolbox
     working_dir: /workspace
     command: ["tail", "-f", "/dev/null"]

@@ -104,30 +104,29 @@ trap "kill ${PF_PID} 2>/dev/null || true" EXIT
 sleep 5
 
 printf 'Querying up{job="quote-api"} — expect value=1 for each pod...\n'
-SCRAPE_CHECK=0
-for i in $(seq 1 12); do
-  RESULT=$(curl -sf "http://localhost:9090/api/v1/query?query=up%7Bjob%3D%22quote-api%22%7D" \
+ATTEMPT=0
+while true; do
+  ATTEMPT=$((ATTEMPT + 1))
+  RESULT=$(curl -sf --max-time 10 \
+    "http://localhost:9090/api/v1/query?query=up%7Bjob%3D%22quote-api%22%7D" \
     2>/dev/null || echo "")
+  if [ -z "${RESULT}" ]; then
+    printf '  attempt %d: no response from Prometheus (port-forward may still be starting)\n' "${ATTEMPT}"
+    sleep 10
+    continue
+  fi
   UP_COUNT=$(echo "${RESULT}" | grep -o '"value":\[.*,"1"\]' | wc -l | tr -d ' ')
   if [ "${UP_COUNT}" -gt 0 ]; then
     printf 'Prometheus scrape confirmed: %s pod(s) reporting up=1\n' "${UP_COUNT}"
     printf 'Sample target: %s\n' "$(echo "${RESULT}" | grep -o '"instance":"[^"]*"' | head -1)"
-    SCRAPE_CHECK=1
     break
   fi
-  printf '  waiting for first scrape... (attempt %d/12)\n' "$i"
+  printf '  attempt %d: quote-api not yet in targets (got: %s)\n' "${ATTEMPT}" "${RESULT:0:120}"
   sleep 10
 done
 
 kill "${PF_PID}" 2>/dev/null || true
 trap - EXIT
-
-if [ "${SCRAPE_CHECK}" -eq 0 ]; then
-  printf 'ERROR: Prometheus is not scraping quote-api after 2 minutes.\n'
-  printf 'Check: kubectl get servicemonitor -n monitoring\n'
-  printf 'Check: kubectl get prometheus -n monitoring -o yaml | grep serviceMonitorSelector -A5\n'
-  exit 1
-fi
 
 printf '\nCurrent quote-api pods and HPA:\n'
 kubectl get pods -n quote-api
