@@ -136,4 +136,4 @@ kubectl get pdb -n quote-api
 printf '\nIngress:\n'
 kubectl get ingress -n quote-api
 
-printf '\nDone. Test from the host: curl http://localhost:8080/api/quote\n'
+printf '\nDone. Test from the host: curl http://localhost:8888/api/quote\n'

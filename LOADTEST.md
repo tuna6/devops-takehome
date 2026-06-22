@@ -3,7 +3,7 @@
 **Two independent runs performed. The manual run (2026-06-21T13:36Z, human-operated) is the primary evidence. The agent-assisted run (2026-06-21T10:18Z) is secondary corroboration.**
 
 **Run date**: 2026-06-21  
-**Tool**: k6 v1.8.0, 7-minute ramp (0→5→10→20→0 VUs), via Traefik ingress at `host.docker.internal:8080`  
+**Tool**: k6 v1.8.0, 7-minute ramp (0→5→10→20→0 VUs), via Traefik ingress at `host.docker.internal:8888`  
 **Cluster**: k3d 5-node (3 schedulable workers: agent-0 spot, agent-1 spot, agent-2 on-demand; agent-3 GPU+NoSchedule; server-0 control-plane+NoSchedule)  
 **HPA**: minReplicas=3, maxReplicas=8, targetCPUUtilizationPercentage=70, CPU request=100m, limit=500m
 

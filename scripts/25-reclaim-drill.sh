@@ -8,9 +8,9 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 export KUBECONFIG="${REPO_ROOT}/.kube/config"
 
 NAMESPACE="quote-api"
-# Port 8080 is mapped host:8080 → cluster:80 via k3d loadbalancer.
+# Port 8888 is mapped host:8888 → cluster:80 via k3d loadbalancer.
 # From inside the toolbox container, reach the host via host.docker.internal.
-CURL_URL="http://host.docker.internal:8080/api/quote"
+CURL_URL="http://host.docker.internal:8888/api/quote"
 # How long to watch pod rescheduling before snapshotting final state.
 WATCH_SECONDS=60
 # Max tolerated gap (seconds) between consecutive successful curl responses.

@@ -30,8 +30,8 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
-      - "9090:9090"   # Prometheus port-forward
-      - "3000:3000"   # Grafana port-forward
+      - "9092:9090"   # Prometheus port-forward
+      - "3002:3000"   # Grafana port-forward
     volumes:
       - ./:/workspace:rw
       - /var/run/docker.sock:/var/run/docker.sock:rw

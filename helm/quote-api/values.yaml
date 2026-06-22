@@ -25,9 +25,9 @@ ingress:
   # k3d v5.9.0 ships k3s v1.35.5 which bundles Traefik v2 by default.
   # Confirmed: `kubectl get ingressclass` shows "traefik" as the registered class.
   className: traefik
-  # No host filter — routes all traffic so `curl http://localhost:8080/api/quote`
+  # No host filter — routes all traffic so `curl http://localhost:8888/api/quote`
   # from the host works without a /etc/hosts entry (Traefik's load-balancer port
-  # is mapped host:8080 → cluster:80 in scripts/00-bootstrap-cluster.sh).
+  # is mapped host:8888 → cluster:80 in scripts/00-bootstrap-cluster.sh).
   host: ""
 hpa:
   minReplicas: 3

@@ -27,7 +27,7 @@ flowchart TD
         DS["/var/run/docker.sock"]
 
         subgraph K3D["k3d cluster — elsa-devops"]
-            LB["serverlb\n:8080→:80 · :6443→:6443"]
+            LB["serverlb\n:8888→:80 · :6443→:6443"]
             S0["server-0\ncontrol-plane"]
             A0["agent-0\nacme.io/capacity=spot"]
             A1["agent-1\nacme.io/capacity=spot"]
@@ -59,7 +59,7 @@ flowchart TD
     GHCR["ghcr.io/tuna6/devops-takehome:SHA\nFastAPI quote-api\n/healthz · /readyz · /metrics · /api/quote"]:::built
     ARGO["ArgoCD v3.4.4\n+ Helm chart"]:::built
     APP["quote-api pods ×3–8\n(spot-preferred · GPU excluded)"]:::built
-    INGRESS["Traefik Ingress\nhost:8080 → /api/quote"]:::built
+    INGRESS["Traefik Ingress\nhost:8888 → /api/quote"]:::built
     PROM["Prometheus v3.12.0\nmonitoring namespace\n(kube-prometheus-stack)"]:::built
     GRAF["Grafana 13.0.2\n+ image renderer\nmonitoring namespace"]:::built
 
@@ -72,7 +72,7 @@ flowchart TD
     INGRESS --> APP
     PROM -->|"scrape /metrics\n(ServiceMonitor, 15 s)"| APP
     PROM -.->|"datasource"| GRAF
-    TB -->|"port-forward :9090/:3000\n(not via Ingress)"| PROM
+    TB -->|"port-forward :9092/:3002\n(not via Ingress)"| PROM
     TB -->|"render API → PNG screenshot\n(60-loadtest.sh)"| GRAF
 ```
 
@@ -189,8 +189,8 @@ Parts 5 and 7 are not implemented. Parts 1–4 and 6 are complete.
 **Port 6443 already in use**  
 If you have another local Kubernetes cluster (minikube, kind, Docker Desktop Kubernetes) the k3s API server port will conflict. Either stop the other cluster first, or change `--api-port 6443` in `scripts/00-bootstrap-cluster.sh` and update the `sed` pattern on the next line to match.
 
-**Port 8080 already in use**  
-The k3d load balancer maps `host:8080 → cluster:80`. If something else owns 8080, change `--port '8080:80@loadbalancer'` in the same script. Note the assignment's `curl http://localhost:<port>/api/quote` step will need the same updated port.
+**Port 8888 already in use**  
+The k3d load balancer maps `host:8888 → cluster:80`. If something else owns 8888, change `--port '8888:80@loadbalancer'` in `scripts/00-bootstrap-cluster.sh` and update `INGRESS_URL` in `scripts/60-loadtest.sh`, `CURL_URL` in `scripts/25-reclaim-drill.sh`, and `BASE_URL` in `loadtest/quote-api-load.js` to match.
 
 **`host-gateway` not resolved — Docker Engine < 20.10**  
 The `extra_hosts: host.docker.internal: host-gateway` entry in `docker-compose.yml` requires Docker Engine 20.10 or later. On older engines the bootstrap container will start but `kubectl get nodes` will fail with a connection refused or TLS error. Upgrade Docker, or as a workaround replace `host-gateway` with your Docker bridge gateway IP (typically `172.17.0.1`, confirm with `ip route | grep docker0`).

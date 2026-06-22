@@ -41,11 +41,11 @@ if [ "$cluster_exists" = true ]; then
     printf 'All 5 node containers now registered.\n'
   fi
 else
-  printf 'Creating k3d cluster "%s" with 1 server + 4 agents and host port 8080 mapped to cluster port 80...\n' "$CLUSTER_NAME"
+  printf 'Creating k3d cluster "%s" with 1 server + 4 agents and host port 8888 mapped to cluster port 80...\n' "$CLUSTER_NAME"
   k3d cluster create "$CLUSTER_NAME" \
     --servers 1 \
     --agents 4 \
-    --port '8080:80@loadbalancer' \
+    --port '8888:80@loadbalancer' \
     --api-port 6443 \
     --k3s-arg '--tls-san=host.docker.internal@server:*' \
     --wait

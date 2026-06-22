@@ -25,10 +25,10 @@ SERVICEMONITOR_MANIFEST="${REPO_ROOT}/monitoring/servicemonitor.yaml"
 K6_SCRIPT="${REPO_ROOT}/loadtest/quote-api-load.js"
 
 # Ingress URL — verified reachable from toolbox container:
-#   - k3d maps host:8080 → cluster:80 via Traefik LoadBalancer
+#   - k3d maps host:8888 → cluster:80 via Traefik LoadBalancer
 #   - docker-compose.yml sets extra_hosts: host.docker.internal → host-gateway
 #   - Ingress has no host filter; routes all traffic (values.yaml ingress.host: "")
-INGRESS_URL="http://host.docker.internal:8080"
+INGRESS_URL="http://host.docker.internal:8888"
 
 printf '\n=== [60-loadtest.sh] Part 6 — Load Test & Observability ===\n'
 
@@ -93,6 +93,11 @@ kubectl wait --for=condition=Ready pod \
 
 # Port-forward to Prometheus service and query the `up` metric for quote-api.
 # `up{job="quote-api"} == 1` means Prometheus successfully scraped each pod.
+
+# Kill any existing port-forward on 9090 (left over from a previous partial run)
+pkill -f "port-forward.*9090" 2>/dev/null || true
+sleep 1
+
 printf 'Port-forwarding to Prometheus (9090)...\n'
 kubectl port-forward -n "${MONITORING_NS}" \
   svc/kube-prometheus-stack-prometheus 9090:9090 &>/tmp/prom-pf.log &
@@ -100,8 +105,21 @@ PF_PID=$!
 # shellcheck disable=SC2064
 trap "kill ${PF_PID} 2>/dev/null || true" EXIT
 
-# Give port-forward time to establish
-sleep 5
+# Wait until the port-forward is actually accepting connections (up to 30s)
+PF_READY=0
+for _i in $(seq 1 6); do
+  sleep 5
+  if curl -sf --max-time 3 http://localhost:9090/-/healthy &>/dev/null; then
+    PF_READY=1
+    break
+  fi
+done
+if [ "${PF_READY}" -eq 0 ]; then
+  printf 'ERROR: port-forward to Prometheus did not become healthy after 30s.\n'
+  printf 'port-forward log:\n'
+  cat /tmp/prom-pf.log
+  exit 1
+fi
 
 printf 'Querying up{job="quote-api"} — expect value=1 for each pod...\n'
 ATTEMPT=0
@@ -110,18 +128,13 @@ while true; do
   RESULT=$(curl -sf --max-time 10 \
     "http://localhost:9090/api/v1/query?query=up%7Bjob%3D%22quote-api%22%7D" \
     2>/dev/null || echo "")
-  if [ -z "${RESULT}" ]; then
-    printf '  attempt %d: no response from Prometheus (port-forward may still be starting)\n' "${ATTEMPT}"
-    sleep 10
-    continue
-  fi
-  UP_COUNT=$(echo "${RESULT}" | grep -o '"value":\[.*,"1"\]' | wc -l | tr -d ' ')
+  UP_COUNT=$(echo "${RESULT}" | grep -o '"value":\[.*,"1"\]' | wc -l | tr -d ' ') || UP_COUNT=0
   if [ "${UP_COUNT}" -gt 0 ]; then
     printf 'Prometheus scrape confirmed: %s pod(s) reporting up=1\n' "${UP_COUNT}"
     printf 'Sample target: %s\n' "$(echo "${RESULT}" | grep -o '"instance":"[^"]*"' | head -1)"
     break
   fi
-  printf '  attempt %d: quote-api not yet in targets (got: %s)\n' "${ATTEMPT}" "${RESULT:0:120}"
+  printf '  attempt %d: quote-api not yet scraped (response: %s)\n' "${ATTEMPT}" "${RESULT:0:120}"
   sleep 10
 done
 
