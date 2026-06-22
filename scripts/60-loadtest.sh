@@ -81,9 +81,31 @@ kubectl apply -f "${SERVICEMONITOR_MANIFEST}"
 printf 'ServiceMonitor applied.\n'
 
 # ---------------------------------------------------------------------------
-# Step 3: Verify Prometheus is scraping quote-api
+# Step 3: Load Grafana dashboard via ConfigMap (idempotent)
 # ---------------------------------------------------------------------------
-printf '\n--- Step 3: Verify scraping ---\n'
+printf '\n--- Step 3: Grafana dashboard ---\n'
+
+# The grafana sidecar (grafana-sc-dashboard) watches for ConfigMaps labelled
+# grafana_dashboard=1 in all namespaces and hot-loads them into Grafana.
+DASHBOARD_JSON="${REPO_ROOT}/monitoring/grafana-dashboard.json"
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quote-api-dashboard
+  namespace: ${MONITORING_NS}
+  labels:
+    grafana_dashboard: "1"
+data:
+  quote-api-dashboard.json: |
+$(sed 's/^/    /' "${DASHBOARD_JSON}")
+EOF
+printf 'Grafana dashboard ConfigMap applied — sidecar will hot-load it.\n'
+
+# ---------------------------------------------------------------------------
+# Step 4: Verify Prometheus is scraping quote-api
+# ---------------------------------------------------------------------------
+printf '\n--- Step 4: Verify scraping ---\n'
 
 printf 'Waiting for Prometheus pod to be ready...\n'
 kubectl wait --for=condition=Ready pod \
@@ -148,7 +170,7 @@ kubectl get hpa -n quote-api
 # ---------------------------------------------------------------------------
 # Step 4: k6 load test
 # ---------------------------------------------------------------------------
-printf '\n--- Step 4: k6 load test ---\n'
+printf '\n--- Step 5: k6 load test ---\n'
 printf 'Script: %s\n' "${K6_SCRIPT}"
 printf 'Target: %s/api/quote\n' "${INGRESS_URL}"
 printf '\nBaseline (pre-measured, 1 VU 30s):\n'
