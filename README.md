@@ -180,7 +180,7 @@ The `scripts/25-reclaim-drill.sh` placement check surfaces this at drill time �
 - **k6 thresholds and the PrometheusRule alert threshold were both derived from real measured run data, not generic numbers** — the initial k6 threshold (`p(95)<2000ms`) was derived from a queuing model and passed at 178ms (over 10× margin — effectively a no-op gate). It was caught, the model was corrected (FastAPI anyio thread pool, not serial), and the threshold tightened to `p(95)<400ms` (2.2× the observed 172–179ms), then re-verified. The PrometheusRule alert threshold (≥30% CPU throttle ratio) was set at 2.1× the 14% peak observed during the load test. Full story in `ai-usage/AI-USAGE-2026-06-21_174703-part6.md`.
 
 **What was cut**  
-Parts 5 and 7 are not implemented. Parts 1–4 and 6 are complete.
+Part 5 (IaC: Karpenter + Cloudflare Terraform) was not implemented due to time constraints. Parts 1–4, 6, and 7 are complete.
 
 ---
 
@@ -194,3 +194,16 @@ The k3d load balancer maps `host:8888 → cluster:80`. If something else owns 88
 
 **`host-gateway` not resolved — Docker Engine < 20.10**  
 The `extra_hosts: host.docker.internal: host-gateway` entry in `docker-compose.yml` requires Docker Engine 20.10 or later. On older engines the bootstrap container will start but `kubectl get nodes` will fail with a connection refused or TLS error. Upgrade Docker, or as a workaround replace `host-gateway` with your Docker bridge gateway IP (typically `172.17.0.1`, confirm with `ip route | grep docker0`).
+
+**kube-prometheus-stack install times out on slow networks (`operator` pod stuck in `ContainerCreating`)**
+
+Symptom: `scripts/60-loadtest.sh` fails with `context deadline exceeded` during Helm install;
+`kubectl get pods -n monitoring` shows the operator pod still `ContainerCreating` after 5+ minutes.
+
+Cause: `quay.io/prometheus-operator/prometheus-operator:v0.91.0` is a large image (~300MB).
+On a cold pull over a slow connection it exceeds Helm's default 5m wait timeout.
+The install is not broken — the image is still downloading.
+
+Fix: wait for the pod to become `Running` (`kubectl get pods -n monitoring -w`),
+then re-run `./scripts/60-loadtest.sh` — it is idempotent and will skip the Helm install
+if the release already exists.

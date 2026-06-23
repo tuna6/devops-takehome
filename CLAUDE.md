@@ -182,10 +182,9 @@ kube-prometheus-stack (chart 86.3.2, Prometheus v3.12.0, Grafana 13.0.2 + image 
 
 Alert: `QuoteApiHighCpuThrottle` — ≥30% CPU throttle ratio for 2m (2.1× the 14% peak observed; loaded in Prometheus, verified via rules API). Dashboard uid: `quote-api-loadtest`. AI-USAGE: `ai-usage/AI-USAGE-2026-06-21_174703-part6.md`.
 
-### What is NOT yet built
+### What is NOT built
 
-- Part 5: IaC (Karpenter/Cloudflare)
-- Part 7: OPS-ANSWERS.md
+- Part 5: IaC (Karpenter/Cloudflare) — skipped due to time constraints
 
 ---
 
